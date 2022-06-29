@@ -1,9 +1,33 @@
 
+# Backend Project 29/06/22
+### Planning
+- server endpoints
+- design database - could use Entity Relationship Diagram - ERD
 
+### timeing
+- 3.5 days of coding time, with presentations in the afternoon of day 4.
 
-
-
-
+## aim to include:
+### Frontend
+A BASIC React frontend (the focus should be on building the backend!)
+### Backend
+- Backend routes + endpoints for various HTTP methods
+- Controllers
+- Middleware
+- Error handling middleware
+- A MongoDB database + collections
+- Mongoose methods
+- Mongoose models + schemas
+- Relations between collections
+- Data validation
+- bcrypt
+- Authentication with JWT
+- Authorization
+- Local Storage / Cookies
+# optional 
+multipart requests let you send data of multiple types in a single request (e.g. a JSON object + an image file)
+only look into this if this makes sense in the context of the project you are building!
+Some research will be needed, e.g. https://swagger.io/docs/specification/describing-request-body/multipart-requests/
 
 # SPA - End of module project 19.04.2022
 ## 1. Time allowed:

@@ -12,6 +12,20 @@ app.get("/test", (req,res,next)=>{
     res.send("<h1> this is the /test route </h1>")
 })
 
+app.post("/", (req,res,next) =>{
+    const newUser = {
+        fName:fName,
+        age:age,
+        id:data.length +1
+    }
+    //data.push(newUser)
+    res.json(newUser);
+})
+
+app.use(express.json());
+
+
+
 //mongoose.connect("mongodb://localhost:27017/***");
 //mongoose.connect("mongodb://localhost:27017/***"); copy from mongoDB website
 //npm install dotenv

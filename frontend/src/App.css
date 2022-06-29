@@ -1,0 +1,202 @@
+:root {
+  font-size: 62.5%;
+
+  --BeautifulPurple:#A64AC9;
+  --Turq: #17E9E0; 
+  --Mustard:#FCCD04;
+  --peachY:#FFB48F;
+  --LesspeachY:#f8bfa3;
+  --Background:#F5E6CC;
+  --textGrey: rgb(12, 12, 12);
+}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,300&display=swap');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
+
+
+.App {
+  text-align: center;
+}
+
+body{
+  background-color: #A64AC9;
+  color: white;
+  font-size: 2.5rem;
+}
+.title{
+  color: white;
+  font-size: 6rem;
+}
+#workshopListUL {
+  display: flex;
+  justify-content: space-around;
+}
+li {
+  display: inline;
+  font-size: 3rem;
+  color: white;
+  margin: 5rem;
+  
+  
+}
+nav{
+  background-color: #17E9E0;
+  padding: 3rem;
+  margin: 3rem;
+}
+nav li a {
+  text-decoration: none;
+  font-size: 4rem;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+/* .workshopContainer{
+  margin: auto 0;
+} */
+.cardContainer{
+  display: flex;
+  justify-content:center;
+  /* width: 50%; */
+}
+/* .workshopLi{
+  display: flex;
+  justify-content: center;
+}   doesnt work & strange alignment */
+
+.workshopCard{
+  color: gray ;
+  background-color: #F5E6CC;
+  width: 500px;
+  height: 400px;
+  border-radius: 20px;
+  font-size: 3rem;
+  padding: 20px;
+  margin: 2rem; 
+}
+.img{
+  border-radius: 50%;
+  width:500px;
+}
+
+.button{
+  width: 100px;
+  height: 40px;
+  background-color: #FCCD04;
+  border-radius: 20px;
+  box-shadow: 0 0 7px 5px rgba(128, 128, 128, 0.507);
+  margin: 40px;
+  color: grey;
+  
+}
+
+.addButton{
+  width: 300px;
+  height: 200px;
+  
+  background-color: #FCCD04;
+  border-radius: 20px;
+  box-shadow: 0 0 7px 5px rgba(128, 128, 128, 0.507);
+  margin: 40px;
+  color: grey;
+  display: flex;
+  align-items: center;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+label, strong{
+  color:purple
+}
+
+#addNewWorkshopCard{
+  /* display: block; */
+  background-color: #F5E6CC;
+  width: 600px;
+  border-radius: 50px;
+  
+}
+form{
+  width: 600px;
+}
+#buttonAdd{
+  background-color: #17E9E0;
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 7px 5px rgba(128, 128, 128, 0.507);
+  margin: 40px;
+  color: grey;
+}
+
+.form_div{
+  display: block;
+}
+
+.divInput{
+  margin: 2rem;
+}
+.divFormReg{
+  display: flex;
+  justify-content: center;
+}
+
+.formReg{
+  width: 700px;
+  height: 950px;
+  background-color:#FCCD04;
+  border-radius: 70px;
+  box-shadow: 0 0 10px 5px lightgray;
+  /* margin: 30rem; */
+}
+
+#h2AddWorkshop{
+  color:#A64AC9;
+}
+input{
+  border-radius: 40px;
+  height: 35px;
+  ;
+}
+
+form div {
+  margin: 30px;
+  
+}
+
+.errorVisible{
+  display:block;
+  color: red;
+  font-size: 1.5rem;
+  border: 0px;
+  margin: 0px;
+}
+.errorNotVisible{
+  display:none;
+}
+
+select{
+  font-size: 2.5rem;
+
+}
+
+input[type=radio] {
+  border: 0px;
+  width: 4%;
+  height: 2em;
+}
+
+
+
+.workshopFormBlock{
+  display: block;
+}
+
+.liNav:hover{
+  color: #A64AC9;
+}

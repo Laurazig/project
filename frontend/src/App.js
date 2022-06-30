@@ -4,12 +4,14 @@ import Navigation from "./Components/Navigation";
 import Home from "./Views/Home";
 import Create from "./Views/Create";
 import Workshops from "./Views/Workshops";
-import './App.css';
 import NotFound from "./Views/NotFound";
-
+import Register from "./Views/Register";
+import Login from "./Views/Login";
+import Courses from "./Views/Courses.js";  //Albums
+import './App.css';
 
 //state for: add new workshop (form.js)
-function App() {
+const App = () => {
   const [workshops, setWorkshops] = useState([]);
   const [name, setName] = useState("");
   const [workshop, setWorkshop] = useState("");
@@ -17,6 +19,9 @@ function App() {
   const [date, setDate] = useState("");
   const [price, setPrice] = useState("");
   const [link, setLink] = useState("");
+  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const [ currentUserId, setCurrentUserId ] = useState("");
+  const [ showLogin, setShowLogin ] = useState(true);
 
   // const [ searchTerm, setSearchTerm ] =useState("");
 
@@ -92,53 +97,78 @@ function App() {
   // const handleChangeSearch =(event) =>{
   //     setSearchTerm(event.target.value)
   // }
-  return (
-    <div className="App">
-      <Router>
-        <header className="App-header">
-          <Navigation />
-        </header>
-        <main>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/create" exact>
-              <Create />
-            </Route>
-            <Route path="/workshops" exact>
-              <Workshops
-                workshops={workshops}
-                name={name}
-                workshop={workshop}
-                location={location}
-                date={date}
-                price={price}
-                link={link}
-                updateName={updateWorkshopName}
-                updateWorkshop={updateWorkshopWorkshop}
-                updateLocation={updateWorkshopLocation}
-                updateDate={updateWorkshopDate}
-                updatePrice={updateWorkshopPrice}
-                updateLink={updateWorkshopLink}
-                update={updateWorkshop}
+
+
+
+  const logout = () => {
+      setCurrentUserId("");
+      setIsLoggedIn(false);
+      setShowLogin(true);
+  }
+
+  // If no user is currently logged in
+  if (!isLoggedIn) {
+      // Display the login view
+      if (showLogin) {
+          return <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />
+      // Display the register view
+      } else {
+          return <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />
+      }
+  // Else, if a user is logged in, display the "albums" page for that user
+   }
+  else {
+  //     return <Albums currentUserId={currentUserId} logout={logout}/>   // replace with new workshops and bring in code below
+ }
+
+  
+  // return (
+  //   <div className="App">
+  //     <Router>
+  //       <header className="App-header">
+  //         <Navigation />
+  //       </header>
+  //       <main>
+  //         <Switch>
+  //           <Route path="/" exact component={Home} />
+  //           <Route path="/create" exact>
+  //             <Create />
+  //           </Route>
+  //           <Route path="/workshops" exact>
+  //             <Workshops
+  //               workshops={workshops}
+  //               name={name}
+  //               workshop={workshop}
+  //               location={location}
+  //               date={date}
+  //               price={price}
+  //               link={link}
+  //               updateName={updateWorkshopName}
+  //               updateWorkshop={updateWorkshopWorkshop}
+  //               updateLocation={updateWorkshopLocation}
+  //               updateDate={updateWorkshopDate}
+  //               updatePrice={updateWorkshopPrice}
+  //               updateLink={updateWorkshopLink}
+  //               update={updateWorkshop}
 
                 
-                // searchTerm={searchTerm}
-                // handleChangeSearch={handleChangeSearch}
-              />
+  //               // searchTerm={searchTerm}
+  //               // handleChangeSearch={handleChangeSearch}
+  //             />
               
-              {/* <FormContext.Provider value={{
-                name:name
-            }} >
-              <Workshops />
-            </FormContext.Provider> */}
-            </Route>
+  //             {/* <FormContext.Provider value={{
+  //               name:name
+  //           }} >
+  //             <Workshops />
+  //           </FormContext.Provider> */}
+  //           </Route>
             
       
-            <Route path="*" component={NotFound} />
-          </Switch>
-        </main>
-      </Router>
-    </div>
-  );
+  //           <Route path="*" component={NotFound} />
+  //         </Switch>
+  //       </main>
+  //     </Router>
+  //   </div>
+  // );
 }
 export default App;

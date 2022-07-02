@@ -12,8 +12,9 @@ import mongoose from "mongoose"
 
 const app = express();
 
-//mongoose.connect("mongodb://localhost:27017/fullstack-project")  
-mongoose.connect("mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/?retryWrites=true&w=majority") 
+mongoose.connect("mongodb://localhost:27017/fullstack-project")  
+//mongoose.connect("mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/?retryWrites=true&w=majority") 
+//COMPASS:          mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/test
 mongoose.connection.on("open", ()=> console.log("Database  connection established"));
 mongoose.connection.on("error",()=> console.error);
 

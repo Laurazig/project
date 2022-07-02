@@ -33,15 +33,11 @@ export const registerPost = async (req, res) => {
        } catch {
         return next(createError(500, "couldn't create user, please try again."));
        } 
-        // Send a response to the client containing the new user object in a JSON format
+        // Send response to client containing the new user object in JSON format
         res.status(201).json(newUser._id);
-    // if user in the db with the username received from the frontend
-    // Create an error object and pass it to the error handling middleware
+    // if user in db with username received from FE
+    // Create error object - pass it to error handling middleware
     } else {
         return next(createError(409, "Sorry, this username has been taken. Please choose another"));
     }    
-
-
-
-
 }

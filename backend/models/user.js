@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose";  //25.05.22
 const { Schema } = mongoose;
 const userSchema = new Schema({
     username: { type: String, required: true },

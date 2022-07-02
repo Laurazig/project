@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.get("/:id", getUserData);    // GET /user/1234
 
-router.post("/:id/albums", postCourse);    // POST /user/1234/albums
+router.post("/:id/courses", postCourse);    // POST /user/1234/albums
 
-router.delete("/:id/albums", deleteCourses);    // DELETE /user/1234/albums
+router.delete("/:id/courses", deleteCourses);    // DELETE /user/1234/albums
 
 export default router;

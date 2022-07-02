@@ -6,21 +6,23 @@ import logo from "../Assets/LWlogo.jpg"
 const Navigation = () => {
     return (
         <div className="nav">
+            <button className="login">LOGIN</button>
+            <button className="register">REGISTER</button>
             <div className="logo">
                 <Link to="/">
-                    <img className="nav_img" src={logo} alt="Leipzig Wardrobe logo"/>
+                    <img className="nav_img" src={logo} alt="Leipzig Wardrobe logo" />
                 </Link>
             </div>
             <nav>
                 <ul>
                     <li >
-                    <Link to="/" className="liNav">HOME</Link>
+                        <Link to="/" className="liNav">HOME</Link>
                     </li>
-                    
+
                     <li className="liNav">
                         <Link to="/workshops" className="liNav">WORKSHOPS</Link>
                     </li>
-                    
+
                     <li className="liNav">
                         <Link to="/create" className="liNav">CREATE</Link>
                     </li>

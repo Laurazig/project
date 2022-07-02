@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Shibori from "../Assets/ShiboriRound.jpg"
+import Sewing from "../Assets/sewing.JPG"
 // import { Link } from "react-router-dom";
 import WorkshopList from "./WorkshopList";
 import FormRegister from "../Components/FormRegister";
@@ -11,7 +11,7 @@ const Workshops = props => {
     return (
         <div className="workshopContainer" >
             <h1>Workshops in Leipzig</h1>
-            <img className="img" src={Shibori} />
+            <img className="img" src={Sewing} alt="sewing machines in a workshop" />
             <WorkshopList
                 workshops={props.workshops}
                 name={props.name}

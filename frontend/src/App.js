@@ -106,21 +106,73 @@ const App = () => {
       setShowLogin(true);
   }
 
-  // If no user is currently logged in
-  if (!isLoggedIn) {
-      // Display the login view
-      if (showLogin) {
-          return <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />
-      // Display the register view
-      } else {
-          return <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />
-      }
-  // Else, if a user is logged in, display the "albums" page for that user
-   }
-  else {
-  //     return <Albums currentUserId={currentUserId} logout={logout}/>   // replace with new workshops and bring in code below
- }
 
+
+  return (
+    <div className="App">
+      <Router>
+        <header className="App-header">
+          <Navigation />
+        </header>
+        <main>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/create" exact>
+              <Create />
+            </Route>
+            <Route path="/workshops" exact>
+              <Workshops
+                workshops={workshops}
+                name={name}
+                workshop={workshop}
+                location={location}
+                date={date}
+                price={price}
+                link={link}
+                updateName={updateWorkshopName}
+                updateWorkshop={updateWorkshopWorkshop}
+                updateLocation={updateWorkshopLocation}
+                updateDate={updateWorkshopDate}
+                updatePrice={updateWorkshopPrice}
+                updateLink={updateWorkshopLink}
+                update={updateWorkshop}
+
+                
+                // searchTerm={searchTerm}
+                // handleChangeSearch={handleChangeSearch}
+              />
+              
+              {/* <FormContext.Provider value={{
+                name:name
+            }} >
+              <Workshops />
+            </FormContext.Provider> */}
+            </Route>
+            
+      
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </main>
+      </Router>
+    </div>
+  );
+  // // If no user is currently logged in
+  // if (!isLoggedIn) {
+  //     // Display the login view
+  //     if (showLogin) {
+  //         return <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />
+  //     // Display the register view
+  //     } else {
+  //         return <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />
+  //     }
+  // // Else, if a user is logged in, display the "albums" page for that user
+  //  }
+  // else {
+  // //     return <Albums currentUserId={currentUserId} logout={logout}/>   // replace with new workshops and bring in code below
+  //        // return <Workshops />    
+  // }
+}
+export default App;
   
   // return (
   //   <div className="App">
@@ -170,5 +222,4 @@ const App = () => {
   //     </Router>
   //   </div>
   // );
-}
-export default App;
+

@@ -1,5 +1,5 @@
 import React from "react";
-import Make from "../Assets/waistcoatSqBig2.jpg"
+import Pattern from "../Assets/pattern.jpg"
 
 
 const Create = () => {
@@ -7,7 +7,7 @@ const Create = () => {
         <div>
             <h1>Make your own clothes</h1>
             <div >Tips and resources about fabric shopping and buying / fixing a machine</div>
-            <img className="img" src={Make} alt="making a waistcoat"/>
+            <img className="img" src={Pattern} alt="cutting material with a pattern"/>
             
             
             

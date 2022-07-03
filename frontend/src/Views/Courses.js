@@ -1,4 +1,4 @@
-//adding album
+//adding new course to list on users page
 
 import React, { useState, useEffect } from "react";
 import Logout from "../Components/Logout.js"
@@ -35,7 +35,7 @@ const Courses = props => {
                 break;
         }
     }
-    const createNewCourse = event => {
+    const createNewCourse = event => {   //submit course
         event.preventDefault();
         const newCourse = {
             school: school,
@@ -60,6 +60,8 @@ const Courses = props => {
                 setCourseDate("");
             })
     }
+
+    
     const deleteCourse = () => {
         const settings = {
             method: "DELETE",
@@ -70,6 +72,21 @@ const Courses = props => {
                 console.log("All courses deleted", data);
                 setCourses([]);
             })
+            //asnc await taken from login_reg - const deleteAllAlbums = async event => { ........
+            // const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/albums`, settings);
+            // const parsedRes = await response.json();
+    
+            // try {
+            //     // If the request was successful...
+            //     if (response.ok) {
+            //         setAlbums(parsedRes);
+            //     // If the request was unsuccessful...
+            //     } else {
+            //         throw new Error(parsedRes.message);
+            //     }
+            // } catch (err) {
+            //     alert(err.message);
+            // }
     }
 
     return (
@@ -80,7 +97,7 @@ const Courses = props => {
             <h2>Add one to the list.</h2>
             <form onSubmit={createNewCourse}>
                 <div>
-                    <label>Scoool</label>
+                    <label>School</label>
                     <input name="school" onChange={updateData} value={school} />
                 </div>
                 <div>               

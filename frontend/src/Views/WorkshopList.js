@@ -1,3 +1,5 @@
+//these are the workshop cards on the home page
+
 import React from "react";
 // import { Link } from "react-router-dom";
 import Form from "../Components/Form";

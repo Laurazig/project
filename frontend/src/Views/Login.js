@@ -47,7 +47,6 @@ const Login = props => {
       if (response.ok) {
         props.setCurrentUserId(parsedRes.id);
         props.setIsLoggedIn(true);
-      // If the request was unsuccessful
       } else {
         throw new Error(parsedRes.message);
       }

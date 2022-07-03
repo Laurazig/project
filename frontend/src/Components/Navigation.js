@@ -1,12 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../Assets/LWlogo.jpg"
+import logo from "../Assets/LWlogo.jpg";
+import ButtonLogin from "../Components/ButtonLogin.js"
 
 
-const Navigation = () => {
+// const loadLogin = () => {
+//how to click login button and load login page
+// }
+
+const Navigation = props => {
     return (
         <div className="nav">
-            <button className="login">LOGIN</button>
+            <ButtonLogin buttonLogin={props.buttonLogin}/>  
             <button className="register">REGISTER</button>
             <div className="logo">
                 <Link to="/">

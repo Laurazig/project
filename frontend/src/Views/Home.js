@@ -13,10 +13,13 @@ const Home = () => {
             </div>
             {/* <img className="img" src={ShiboriShirt} alt="beautiful T-shirt made from bedsheet and tye-dyed" /> */}
 
-            <div class="map">
+{/* map triggers get erros in console */}
+            {/* <div className="map">
                 <iframe id="iFrame_Map" src="https://www.google.com/maps/d/embed?mid=16Rp_3MkkmZqyOnMjoBz6a6aGaL9gRkeo&ehbc=2E312F"
                     width="640" height="480"></iframe>
-            </div>
+            </div> */}
+
+
             <h2>Create an account</h2>
             
             <button className="register">REGISTER</button>

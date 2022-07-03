@@ -1,3 +1,5 @@
+//register new user- create account
+
 import React, { useState } from "react";
 
 const Register = props => {

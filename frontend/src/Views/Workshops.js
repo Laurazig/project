@@ -1,3 +1,6 @@
+// passing props from app.js to workshopList.js
+//shows title & image
+
 import React, { useState } from "react";
 import Sewing from "../Assets/sewing.JPG"
 // import { Link } from "react-router-dom";

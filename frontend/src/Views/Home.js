@@ -1,5 +1,6 @@
 import React from "react";
-import ShiboriShirt from "../Assets/shiboriShirt.png"
+import { Link } from "react-router-dom";
+
 
 const Home = () => {
     return (
@@ -11,7 +12,7 @@ const Home = () => {
             <p> On our workshop page you can see a list of current clothesmaking courses in the city</p>
 
             </div>
-            {/* <img className="img" src={ShiboriShirt} alt="beautiful T-shirt made from bedsheet and tye-dyed" /> */}
+
 
 {/* map triggers get erros in console */}
             {/* <div className="map">
@@ -21,15 +22,20 @@ const Home = () => {
 
 
             <h2>Create an account</h2>
+            <div className="enterButtons">
+                <Link to="/register" className="enterButton">REGISTER</Link>
+            </div>
             
-            <button className="register">REGISTER</button>
             <p>
-                Are you offering clothes making courses in Leipzig? Log in to add them to our workshps page!
+                Are you offering clothes making courses in Leipzig? Sign up to add them to our workshops page!
             </p>
             <p>
-                Want to keep track of which courses you are signed up to? Log in  and find out!
+                Want to keep track of which courses you are registered on? Log in to see your homepage to find out!
             </p>
-            <button className="login">LOGIN</button>
+            {/* <div className="enterButtons">
+               <Link to="/login" className="enterButton">LOGIN</Link> 
+            </div> */}
+            
 
 
 

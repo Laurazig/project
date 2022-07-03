@@ -1,18 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../Assets/LWlogo.jpg";
-import ButtonLogin from "../Components/ButtonLogin.js"
-
-
-// const loadLogin = () => {
-//how to click login button and load login page
-// }
 
 const Navigation = props => {
     return (
         <div className="nav">
-            <ButtonLogin buttonLogin={props.buttonLogin}/>  
-            <button className="register">REGISTER</button>
+            <div className="enterButtons">
+                <Link to="/login" className="enterButton">LOGIN</Link>
+                <Link to="/register" className="enterButton">REGISTER</Link>
+            </div>
+
             <div className="logo">
                 <Link to="/">
                     <img className="nav_img" src={logo} alt="Leipzig Wardrobe logo" />
@@ -31,6 +28,7 @@ const Navigation = props => {
                     <li className="liNav">
                         <Link to="/create" className="liNav">CREATE</Link>
                     </li>
+                
                 </ul>
             </nav>
 

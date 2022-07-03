@@ -103,11 +103,11 @@ const Register = props => {
           <input name="email" onChange={updateData} value={email} />
         </div>
 
-        <button>Register an account</button>
+        <button className="enterButton">SIGN UP</button>
       </form>
 
-      <button onClick={updateShowLogin}>Already registered? Log in to your account!</button>
-    </div>
+      <button className="enterButton" onClick={updateShowLogin}>Already registered? Log in to your account!</button>      
+    </div>  //Not swapping login reg views 
   )
 }
 

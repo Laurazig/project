@@ -53,6 +53,24 @@ nav li a {
   color: white;
   transition: color 0.3s ease-in-out;
 }
+.enterButtons{
+  margin: 5rem;
+}
+
+.enterButton{
+  margin: 2rem;
+  padding: 3rem;
+  border-radius: 50%;
+  /* height: 3rem; */
+  background-color: rgba(255, 255, 255, 0.208);
+  border: none;
+  color:white
+}
+.enterButton:hover{
+  background-color: white;
+  color: #A64AC9;
+}
+
 /* .workshopContainer{
   margin: auto 0;
 } */
@@ -81,7 +99,7 @@ nav li a {
   width:500px;
 }
 
-.button{
+/* .button{
   width: 100px;
   height: 40px;
   background-color: #FCCD04;
@@ -90,7 +108,7 @@ nav li a {
   margin: 40px;
   color: grey;
   
-}
+} */
 
 .addButton{
   width: 300px;

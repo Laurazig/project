@@ -76,10 +76,10 @@ const Login = props => {
           <input name="password" onChange={updateData} value={password} />
         </div>
 
-        <button>Sign In</button>
+        <button className="enterButton">SIGN IN</button>
       </form>
 
-      <button onClick={updateShowLogin}>Not registered yet? Register for an account!</button>
+      <button className="enterButton" onClick={updateShowLogin}>Not registered yet? Register for an account!</button>
     </div>
   )
 }

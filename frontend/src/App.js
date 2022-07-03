@@ -100,7 +100,7 @@ const App = () => {
 
 
 
-  const logout = () => {
+  const logout = () => {   //???????why is this not used
       setCurrentUserId("");
       setIsLoggedIn(false);
       setShowLogin(true);
@@ -148,7 +148,12 @@ const App = () => {
               <Workshops />
             </FormContext.Provider> */}
             </Route>
-            
+            <Route path="/login" exact>
+              <Login />
+            </Route>
+            <Route path="/register" exact>
+              <Register />
+            </Route>
       
             <Route path="*" component={NotFound} />
           </Switch>

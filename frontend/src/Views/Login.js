@@ -1,4 +1,7 @@
+//POST
+
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = props => {
   const [username, setUsername] = useState("");
@@ -79,7 +82,10 @@ const Login = props => {
         <button className="enterButton">SIGN IN</button>
       </form>
 
-      <button className="enterButton" onClick={updateShowLogin}>Not registered yet? Register for an account!</button>
+      {/* <button className="enterButton" onClick={updateShowLogin}>Not registered yet? Register for an account!</button> */}
+      <div className="enterButtons">
+        <Link to="/register" className="enterButton">Not registered yet? Register for an account</Link>
+      </div>
     </div>
   )
 }

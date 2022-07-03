@@ -4,17 +4,20 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import dotenv from "dotenv";
 import globalErrorHandler from "./middleware/globalErrorHandler.js";
 import registerRouter from "./routes/register.js";
 import loginRouter from "./routes/login.js";
 import usersRouter from "./routes/users.js"; 
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const app = express();
+dotenv.config()
 
-mongoose.connect("mongodb://localhost:27017/fullstack-project")  
-//mongoose.connect("mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/?retryWrites=true&w=majority") 
+//mongoose.connect("mongodb://localhost:27017/fullstack-project")  
+mongoose.connect("mongodb+srv://n42:bongo@cluster0.r46gvie.mongodb.net/fullstack-project?retryWrites=true&w=majority") 
 //COMPASS:          mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/test
+//mongoose.connect("mongodb+srv://{process.env.DB_USERNAME}:{process.env.DB_PASSWORD}@cluster0.r46gvie.mongodb.net/{process.env.DB_NAME}?retryWrites=true&w=majority") 
 mongoose.connection.on("open", ()=> console.log("Database  connection established"));
 mongoose.connection.on("error",()=> console.error);
 

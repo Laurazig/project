@@ -1,6 +1,7 @@
 //register new user- create account
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Register = props => {
     const [username, setUsername] = useState("");
@@ -106,8 +107,11 @@ const Register = props => {
         <button className="enterButton">SIGN UP</button>
       </form>
 
-      <button className="enterButton" onClick={updateShowLogin}>Already registered? Log in to your account!</button>      
-    </div>  //Not swapping login reg views 
+      {/* <button className="enterButton" onClick={updateShowLogin}>Already registered? Log in to your account!</button>       */}
+      <div className="enterButtons">
+        <Link to="/login" className="enterButton">Already registered? Log in to your account</Link>
+      </div>
+    </div> 
   )
 }
 

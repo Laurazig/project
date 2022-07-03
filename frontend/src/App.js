@@ -149,10 +149,10 @@ const App = () => {
             </FormContext.Provider> */}
             </Route>
             <Route path="/login" exact>
-              <Login />
+              <Login  setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId}/>
             </Route>
             <Route path="/register" exact>
-              <Register />
+              <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId}/>
             </Route>
       
             <Route path="*" component={NotFound} />
@@ -179,52 +179,5 @@ const App = () => {
 }
 export default App;
   
-  // return (
-  //   <div className="App">
-  //     <Router>
-  //       <header className="App-header">
-  //         <Navigation />
-  //       </header>
-  //       <main>
-  //         <Switch>
-  //           <Route path="/" exact component={Home} />
-  //           <Route path="/create" exact>
-  //             <Create />
-  //           </Route>
-  //           <Route path="/workshops" exact>
-  //             <Workshops
-  //               workshops={workshops}
-  //               name={name}
-  //               workshop={workshop}
-  //               location={location}
-  //               date={date}
-  //               price={price}
-  //               link={link}
-  //               updateName={updateWorkshopName}
-  //               updateWorkshop={updateWorkshopWorkshop}
-  //               updateLocation={updateWorkshopLocation}
-  //               updateDate={updateWorkshopDate}
-  //               updatePrice={updateWorkshopPrice}
-  //               updateLink={updateWorkshopLink}
-  //               update={updateWorkshop}
 
-                
-  //               // searchTerm={searchTerm}
-  //               // handleChangeSearch={handleChangeSearch}
-  //             />
-              
-  //             {/* <FormContext.Provider value={{
-  //               name:name
-  //           }} >
-  //             <Workshops />
-  //           </FormContext.Provider> */}
-  //           </Route>
-            
-      
-  //           <Route path="*" component={NotFound} />
-  //         </Switch>
-  //       </main>
-  //     </Router>
-  //   </div>
-  // );
 

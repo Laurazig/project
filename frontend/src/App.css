@@ -70,6 +70,21 @@ nav li a {
   background-color: white;
   color: #A64AC9;
 }
+.buttonCardDiv{
+    margin: 2rem;
+    background-color:rgba(255, 255, 255, 0.078);
+    color: #e6bbf7;  
+    border-radius:5%;
+    padding: 1rem;
+}
+.buttonCardDiv:hover{
+  background-color: rgba(255, 255, 255, 0.168);
+  
+}
+/* .buttonCard:hover{
+color: #A64AC9;
+} */
+
 
 /* .workshopContainer{
   margin: auto 0;
@@ -85,13 +100,14 @@ nav li a {
 }   doesnt work & strange alignment */
 
 .workshopCard{
-  color: gray ;
-  background-color: #F5E6CC;
-  width: 500px;
-  height: 400px;
+  color:#17E9E0;
+  /* background-color: #F5E6CC; */
+  box-shadow: 0 0 10px 5px lightgray;
+  width: 50rem;
+  height: 44rem;
   border-radius: 20px;
   font-size: 3rem;
-  padding: 20px;
+  padding: 3rem;
   margin: 2rem; 
 }
 .img{
@@ -129,15 +145,38 @@ a{
 }
 
 label, strong{
-  color:purple
+  color:white
 }
 
 #addNewWorkshopCard{
   /* display: block; */
-  background-color: #F5E6CC;
+  /* background-color: #F5E6CC; */
   width: 600px;
   border-radius: 50px;
   
+  
+}
+.addNewWorkshopCard{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.addNewWorkshopForm{
+  padding: 1rem;
+}
+.currentCoursesContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+
+}
+.currentCourses{
+  background-color: rgba(255, 255, 255, 0.204);
+  width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px lightgray;
+  margin: 1rem;
 }
 .form{
   
@@ -151,10 +190,12 @@ label, strong{
 form{
   width: 600px;
   background-color: rgba(255, 255, 255, 0.204);
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   border-radius: 10px;
+  box-shadow: 0 0 10px 5px lightgray;
+  margin: 1rem
+}
+.formCourse{
+  display: block;
 }
 #buttonAdd{
   background-color: #17E9E0;
@@ -168,6 +209,8 @@ form{
 
 .form_div{
   display: block;
+  padding: 1rem;
+  margin: 1rem;
 }
 
 .divInput{
@@ -176,16 +219,16 @@ form{
 .divFormReg{
   display: flex;
   justify-content: center;
+  margin: 1rem;
 }
 
-.formReg{
+/* .formReg{
   width: 700px;
   height: 950px;
-  background-color:#FCCD04;
+ background-color:#FCCD04; 
   border-radius: 70px;
   box-shadow: 0 0 10px 5px lightgray;
-  /* margin: 30rem; */
-}
+} */
 
 #h2AddWorkshop{
   color:#A64AC9;

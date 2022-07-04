@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Logout from "../components/Logout.js";
 import Deregister from "../components/Deregister.js";
 import UsersData from "../components/UsersData.js";
+import FormRegister from "../components/FormRegister";
+import Form from "../components/Form";
 
 const Courses = props => {
     const [firstName, setFirstName] = useState("");
@@ -13,9 +15,10 @@ const Courses = props => {
     const [courses, setCourses] = useState([]);        //albums
     const [isAdmin, setIsAdmin] = useState(false);
 
-    
+
     useEffect(() => {
-        console.log("token from app.js state", props.token)    },[])
+        console.log("token from app.js state", props.token)
+    }, [])
 
     // When the <Courses /> component first renders...
     // GET relevant data about the user who logged in, and update state...
@@ -26,7 +29,7 @@ const Courses = props => {
                 // headers: { 
                 //     "Authorisation": "Bearer " + props.token
                 // },
-                credentials:"include"
+                credentials: "include"
             }
             // Make a GET request to the "/users/:id" endpoint in our server...
             // ... and then handle the response from the server
@@ -83,9 +86,9 @@ const Courses = props => {
                 "Content-Type": "application/json",
                 "Authorisation": "Bearer " + props.token
             },
-            Credentials:"include"
+            Credentials: "include"
         }
-       
+
         // Make a request to create the new course in the "courses" collection (if needed)...
         // And get the course's id back in the server's response
         const response = await fetch(process.env.REACT_APP_SERVER_URL + `/courses`, settings);
@@ -100,9 +103,9 @@ const Courses = props => {
                     body: JSON.stringify({ id: parsedRes.id }),
                     headers: {
                         "Content-Type": "application/json",
-                         //"Authorisation": "Bearer " + props.token
+                        //"Authorisation": "Bearer " + props.token
                     },
-            Credentials:"include"
+                    Credentials: "include"
                 }
 
                 // Make a second fetch request to add the new course id to the user's "courses" array
@@ -118,19 +121,19 @@ const Courses = props => {
                     setSchool("");
                     setCourseTitle("");
                     setCourseDate("");
-                
-                // If the second fetch request was unsuccessful...
+
+                    // If the second fetch request was unsuccessful...
                 } else {
-                    throw new Error(secondParsedRes.message);    
+                    throw new Error(secondParsedRes.message);
                 }
-            // If the first fetch request was unsuccessful...
+                // If the first fetch request was unsuccessful...
             } else {
                 throw new Error(parsedRes.message);
             }
         } catch (err) {
             alert(err.message);
         }
-    } 
+    }
 
     // Function to delete all the current user's courses from the db
     // Make a DELETE request to the "/users/:id/courses" endpoint in our server...
@@ -160,7 +163,7 @@ const Courses = props => {
     }
     const deleteOneCourse = async event => {
         const courseId = event.target.parentElement.id;
-        
+
         const settings = {
             method: "DELETE",
             headers: {
@@ -170,7 +173,7 @@ const Courses = props => {
         //                             userid      albumid
         // http://localhost:3001/users/1234/albums/5678
 
-        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses/${courseId}`, settings);        
+        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses/${courseId}`, settings);
         const parsedRes = await response.json();
 
         try {
@@ -181,47 +184,75 @@ const Courses = props => {
             }
         } catch (err) {
             alert(err.message);
-        }        
+        }
     }
     return (
         <div>
-            <h2 id="greeting">Welcome to your dashbord {firstName}!</h2>
+            <h1>Courses Dashbord</h1>
+            <h2 id="greeting">Welcome {firstName}!</h2>
             <Logout logout={props.logout} />
             <Deregister deregister={props.deregister} />
-          {isAdmin && < UsersData  currentUserId= {props.currentUserId} token={props.token}/>}
-            <h1>Courses</h1>
-            <h2>Courses you are signed up to show below! Add one to the list</h2>
-            <div className="form">
+            {isAdmin && < UsersData currentUserId={props.currentUserId} token={props.token} />}
+            
+            <h2>1. Learner? Courses you are registered on show below! </h2>
+            <div className="currentCoursesContainer">
 
-            <form onSubmit={createNewCourse}>
-                <div>
-                    <label>School</label>
-                    <input name="school" onChange={updateData} value={school} />
-                </div>
-                <div>
-                    <label>Title</label>
-                    <input name="title" onChange={updateData} value={courseTitle} />
-                </div>
-                <div>
-                    <label>Date</label>
-                    <input name="date" onChange={updateData} value={courseDate} />
-                </div>
-                <button>Submit Course</button>
-            </form>
-            </div>
-            <button onClick={deleteAllCourses}>Delete all courses!</button>
-            <div>
-                <h2>Current Courses</h2>
+            
+            <div className="currentCourses">
+                <h2>List of Current Courses</h2>
                 <ul>
                     {
                         courses.map(course => {
-                            return <li key={course._id}id={course._id}>{course.courseTitle} by {course.school} ({course.courseDate})
-                             <span onClick={deleteOneCourse}>X</span>
+                            return <li key={course._id} id={course._id}>{course.courseTitle} by {course.school} ({course.courseDate})
+                                <span onClick={deleteOneCourse}>X</span>
                             </li>
                         })
                     }
                 </ul>
             </div>
+             </div> 
+              <div className="form">
+
+                <form onSubmit={createNewCourse}>
+                    <h2>Add one to the list</h2>
+                    <div >
+                        <label className="formCourse">School</label>
+                        <input name="school" onChange={updateData} value={school} />
+                    </div>
+                    <div >
+                        <label className="formCourse">Title</label>
+                        <input name="title" onChange={updateData} value={courseTitle} />
+                    </div>
+                    <div >
+                        <label className="formCourse">Date</label>
+                        <input name="date" onChange={updateData} value={courseDate} />
+                    </div>
+                    <button className="enterButton">Submit Course</button>
+                </form>
+            </div>
+            <button className="enterButton" onClick={deleteAllCourses}>Delete all courses!</button>
+          
+            
+            <h2>2. Teacher? Add your course to the workshops page!!</h2>
+            
+            <Form
+                workshops={props.workshops}
+                name={props.name}
+                workshop={props.workshop}
+                location={props.location}
+                date={props.date}
+                price={props.price}
+                link={props.link}
+                updateName={props.updateName}
+                updateWorkshop={props.updateWorkshop}
+                updateLocation={props.updateLocation}
+                updateDate={props.updateDate}
+                updatePrice={props.updatePrice}
+                updateLink={props.updateLink}
+                update={props.update}
+            />
+            <h2>3. Learner? Register for a workshop</h2>
+            <FormRegister />
         </div>
     )
 }

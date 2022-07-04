@@ -46,9 +46,12 @@ const Form = props => {
 
 
     return (
-        <div id="addNewWorkshopCard">
-            <form  onSubmit={updateWorkshop}>
-                <h2 id="h2AddWorkshop">Add new workshop! (form.js)</h2>
+        <div className="addNewWorkshopCard">
+
+        
+        <div id="addNewWorkshopCard" >
+            <form className="addNewWorkshopForm" onSubmit={updateWorkshop} >
+                <h2 >Add new workshop! (form.js)</h2>
                 <div className="form_div">
                     <div className="divInput">
                         <label>Name: </label>
@@ -65,8 +68,8 @@ const Form = props => {
                         <input placeholder="Enter location" value={props.location} onChange={updateNewLocation}></input>
                     </div>
                     
-                    <div className="divInput">
-                        <label>Date:</label>
+                    <div >
+                        <label className="divInput">Date:</label>
                         <input placeholder="Enter date" value={props.date} onChange={updateNewDate}></input>
                     </div>
                     
@@ -82,10 +85,11 @@ const Form = props => {
                     
                 </div>
                 <div className="form_div">
-                    <button id="buttonAdd">add</button>
+                    <button className="enterButton">add</button>
                 </div>
 
             </form>
+        </div>
         </div>
     )
 }

@@ -158,7 +158,8 @@ const FormRegister = props => {
     return (
         <div className="divFormReg">
             <form className="formReg" onSubmit={submitForm} >
-                <h2>Register for a workshop (formRegister.js)</h2>
+                <h2>Coming soon...</h2>
+                <p>(formRegister.js)</p>
                 <div>
                     <label className="workshopFormBlock" htmlFor="user_name">Name:</label>
                     <input id="user_name" name="user_name" onChange={updateData} placeholder="Enter name" />
@@ -206,7 +207,7 @@ const FormRegister = props => {
                     <label className="radio_label">Maybe later</label>
                 </div>
                 <div className="form_div">
-                    <button id="buttonAdd" >Submit</button>
+                    <button className="enterButton"  >Submit</button>
                 </div>
 
             </form>

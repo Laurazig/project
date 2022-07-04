@@ -104,7 +104,7 @@ const App = () => {
     setToken(token);
     setCurrentUserId(id);
     setIsLoggedIn(true);
-}
+  }
   const logout = () => {   //???????why is this not used
     setCurrentUserId("");
     setIsLoggedIn(false);
@@ -131,19 +131,7 @@ const App = () => {
             <Route path="/workshops" exact>
               <Workshops
                 workshops={workshops}
-                name={name}
-                workshop={workshop}
-                location={location}
-                date={date}
-                price={price}
-                link={link}
-                updateName={updateWorkshopName}
-                updateWorkshop={updateWorkshopWorkshop}
-                updateLocation={updateWorkshopLocation}
-                updateDate={updateWorkshopDate}
-                updatePrice={updateWorkshopPrice}
-                updateLink={updateWorkshopLink}
-                update={updateWorkshop}
+
 
 
               // searchTerm={searchTerm}
@@ -157,17 +145,31 @@ const App = () => {
             </FormContext.Provider> */}
             </Route>
             <Route path="/login" exact>
-            {isLoggedIn? <Redirect to="/courses" /> : <Home />}
+              {/* {isLoggedIn? <Redirect to="/courses" /> : <Home />} */}
               {/* <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> */}
-              {isLoggedIn? <Redirect to="/courses" /> :<Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} login={login} /> }
-              
+              {isLoggedIn ? <Redirect to="/courses" /> : <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} login={login} />}
+
             </Route>
             <Route path="/register" exact>
               {/* <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> */}
-              {isLoggedIn ? <Redirect to="/courses" /> : <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> }
+              {isLoggedIn ? <Redirect to="/courses" /> : <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />}
             </Route>
             <Route path="/courses" exact>
-              <Courses />
+              <Courses
+                name={name}
+                workshop={workshop}
+                location={location}
+                date={date}
+                price={price}
+                link={link}
+                updateName={updateWorkshopName}
+                updateWorkshop={updateWorkshopWorkshop}
+                updateLocation={updateWorkshopLocation}
+                updateDate={updateWorkshopDate}
+                updatePrice={updateWorkshopPrice}
+                updateLink={updateWorkshopLink}
+                update={updateWorkshop}
+              />
             </Route>
 
             <Route path="*" component={NotFound} />
@@ -186,7 +188,7 @@ const App = () => {
   //  }
   // else {
   //     return <Albums currentUserId={currentUserId} logout={logout}/>   // replace with new workshops and bring in code below
-         // return <Workshops />    
+  // return <Workshops />    
   // }
 }
 export default App;

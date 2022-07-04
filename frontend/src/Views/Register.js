@@ -51,8 +51,10 @@ const Register = props => {
       body: JSON.stringify(newUser),
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      Credentials:"include"
     }
+    console.log(process.env.REACT_APP_SERVER_URL)
 
     // Make a POST request to the "/register" endpoint in our server...
     // ... and then handle the response from the server
@@ -62,9 +64,10 @@ const Register = props => {
     try {
       // If the request was successful...
       if (response.ok) {
-        props.setCurrentUserId(parsedRes);
-        props.setIsLoggedIn(true);
-        // If the request was unsuccessful
+        // const now = new Date();
+        // const tokenExpiry =new Date(now.getTime() + 1000 * 60 *60);
+        // localStorage.setItem("data", JSON.stringify({ token:parsedRes.token, id:parsedRes.id, expiry:tokenExpiry.toISOString()}));
+        props.login(parsedRes.token, parsedRes.id);
       } else {
         throw new Error(parsedRes.message);
       }
@@ -72,6 +75,7 @@ const Register = props => {
       alert(err.message);
     }
   }
+
 
   // Function to update the "showLogin" state variable in App.js
   const updateShowLogin = () => {

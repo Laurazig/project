@@ -1,11 +1,15 @@
 //POST
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Login = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  
+  useEffect(()=>{
+    console.log("login",props.token)},[])
+  
 
   // Function to update the value of an input
   const updateData = event => {

@@ -19,6 +19,7 @@ const App = () => {
   const [date, setDate] = useState("");
   const [price, setPrice] = useState("");
   const [link, setLink] = useState("");
+  // When the app first renders, no user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUserId, setCurrentUserId] = useState("");
   const [showLogin, setShowLogin] = useState(true);
@@ -30,7 +31,23 @@ const App = () => {
 
   useEffect(() => {
     setWorkshops(pretendFetch)
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("data"));
+    if (data && data.token && data.id && data.expiry) {
+      const tokenExpiry = new Date(data.expiry);
+      const now = new Date();
+
+      if (tokenExpiry > now) {
+        login(data.token, data.id);
+      } else {
+        logout();
+      }
+    } else {
+      logout();
+    }
+  }, []);
 
   const pretendFetch = () => {
     return [
@@ -105,10 +122,39 @@ const App = () => {
     setCurrentUserId(id);
     setIsLoggedIn(true);
   }
-  const logout = () => {   //???????why is this not used
+  const logout = () => {
+    localStorage.removeItem("data")
+    setToken(false);
     setCurrentUserId("");
     setIsLoggedIn(false);
     setShowLogin(true);
+  }
+
+  const deregister = async () => {
+    const settings = {
+      method: "DELETE",
+      headers: {
+        "authorisation": "Bearer " + token
+      }
+    }
+    // Let's pretend the current user has an id of 1234abcd
+    // The DELETE request will be sent to:
+    // http://localhost:3001/users/1234abcd
+    const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${currentUserId}`, settings);
+    const parsedRes = await response.json();
+
+    try {
+      if (response.ok) {
+        alert(parsedRes.message);
+        setIsLoggedIn(false);
+        setShowLogin(true);
+        setCurrentUserId("");
+      } else {
+        throw new Error(parsedRes.message);
+      }
+    } catch (err) {
+      alert(err.message);
+    }
   }
 
 
@@ -152,7 +198,7 @@ const App = () => {
             </Route>
             <Route path="/register" exact>
               {/* <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> */}
-              {isLoggedIn ? <Redirect to="/courses" /> : <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />}
+              {isLoggedIn ? <Redirect to="/courses" /> : <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} login={login} />}
             </Route>
             <Route path="/courses" exact>
               <Courses
@@ -169,6 +215,8 @@ const App = () => {
                 updatePrice={updateWorkshopPrice}
                 updateLink={updateWorkshopLink}
                 update={updateWorkshop}
+                logout={logout} 
+                deregister={deregister} 
               />
             </Route>
 

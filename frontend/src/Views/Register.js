@@ -81,7 +81,7 @@ const Register = props => {
   return (
     <div>
       <h1>Register</h1>
-
+      <div className="form">
       <form onSubmit={registerUser}>
         <div>
           <label>Username</label>
@@ -106,6 +106,7 @@ const Register = props => {
 
         <button className="enterButton">SIGN UP</button>
       </form>
+   </div>
 
       {/* <button className="enterButton" onClick={updateShowLogin}>Already registered? Log in to your account!</button>       */}
       <div className="enterButtons">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route,  } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect, } from "react-router-dom";
 import Navigation from "./Components/Navigation";
 import Home from "./Views/Home";
 import Create from "./Views/Create";
@@ -19,9 +19,9 @@ const App = () => {
   const [date, setDate] = useState("");
   const [price, setPrice] = useState("");
   const [link, setLink] = useState("");
-  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
-  const [ currentUserId, setCurrentUserId ] = useState("");
-  const [ showLogin, setShowLogin ] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState("");
+  const [showLogin, setShowLogin] = useState(true);
 
   // const [ searchTerm, setSearchTerm ] =useState("");
 
@@ -92,8 +92,8 @@ const App = () => {
     setDate("");
     setPrice("");
     setLink("");
-  }  
-  
+  }
+
   // const handleChangeSearch =(event) =>{
   //     setSearchTerm(event.target.value)
   // }
@@ -101,9 +101,9 @@ const App = () => {
 
 
   const logout = () => {   //???????why is this not used
-      setCurrentUserId("");
-      setIsLoggedIn(false);
-      setShowLogin(true);
+    setCurrentUserId("");
+    setIsLoggedIn(false);
+    setShowLogin(true);
   }
 
 
@@ -116,7 +116,10 @@ const App = () => {
         </header>
         <main>
           <Switch>
-            <Route path="/" exact component={Home} />
+            {/* <Route path="/" exact component={Home} /> */}
+            <Route path="/" exact>
+              {isLoggedIn? <Redirect to="/courses" /> : <Home />}
+            </Route>
             <Route path="/create" exact>
               <Create />
             </Route>
@@ -137,11 +140,11 @@ const App = () => {
                 updateLink={updateWorkshopLink}
                 update={updateWorkshop}
 
-                
-                // searchTerm={searchTerm}
-                // handleChangeSearch={handleChangeSearch}
+
+              // searchTerm={searchTerm}
+              // handleChangeSearch={handleChangeSearch}
               />
-              
+
               {/* <FormContext.Provider value={{
                 name:name
             }} >
@@ -149,35 +152,38 @@ const App = () => {
             </FormContext.Provider> */}
             </Route>
             <Route path="/login" exact>
-              <Login  setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId}/>
+              {/* <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> */}
+              {isLoggedIn? <Redirect to="/courses" /> :<Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> }
+              
             </Route>
             <Route path="/register" exact>
-              <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId}/>
+              {/* <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> */}
+              {isLoggedIn ? <Redirect to="/courses" /> : <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> }
             </Route>
-      
+            <Route path="/courses" exact>
+              <Courses />
+            </Route>
+
             <Route path="*" component={NotFound} />
           </Switch>
         </main>
       </Router>
     </div>
   );
-  // // If no user is currently logged in
+
   // if (!isLoggedIn) {
-  //     // Display the login view
   //     if (showLogin) {
   //         return <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />
-  //     // Display the register view
   //     } else {
   //         return <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} />
   //     }
-  // // Else, if a user is logged in, display the "albums" page for that user
   //  }
   // else {
-  // //     return <Albums currentUserId={currentUserId} logout={logout}/>   // replace with new workshops and bring in code below
-  //        // return <Workshops />    
+  //     return <Albums currentUserId={currentUserId} logout={logout}/>   // replace with new workshops and bring in code below
+         // return <Workshops />    
   // }
 }
 export default App;
-  
+
 
 

@@ -131,10 +131,12 @@ const Courses = props => {
     }
     return (
         <div>
-            <h2 id="greeting">Welcome {firstName}!</h2>
+            <h2 id="greeting">Welcome to your dashbord {firstName}!</h2>
             <Logout logout={props.logout} />
-            <h1>Courses you are signed up to show below!</h1>
-            <h2>Add one to the list</h2>
+            <h1>Courses</h1>
+            <h2>Courses you are signed up to show below! Add one to the list</h2>
+            <div className="form">
+
             <form onSubmit={createNewCourse}>
                 <div>
                     <label>School</label>
@@ -150,6 +152,7 @@ const Courses = props => {
                 </div>
                 <button>Submit Course</button>
             </form>
+            </div>
             <button onClick={deleteAllCourses}>Delete all courses!</button>
             <div>
                 <h2>Current Courses</h2>

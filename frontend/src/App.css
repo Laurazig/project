@@ -60,7 +60,7 @@ nav li a {
 .enterButton{
   margin: 2rem;
   padding: 3rem;
-  border-radius: 10%;
+  border-radius:5%;
   /* height: 3rem; */
   background-color: rgba(255, 255, 255, 0.208);
   border: none;
@@ -115,7 +115,7 @@ nav li a {
   height: 200px;
   
   background-color: #FCCD04;
-  border-radius: 20px;
+  border-radius: 10px;
   box-shadow: 0 0 7px 5px rgba(128, 128, 128, 0.507);
   margin: 40px;
   color: grey;
@@ -139,14 +139,28 @@ label, strong{
   border-radius: 50px;
   
 }
+.form{
+  
+  padding: 1rem;
+  /* width: 50%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
 form{
   width: 600px;
+  background-color: rgba(255, 255, 255, 0.204);
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  border-radius: 10px;
 }
 #buttonAdd{
   background-color: #17E9E0;
   width: 100px;
   height: 40px;
-  border-radius: 20px;
+  border-radius: 10px;
   box-shadow: 0 0 7px 5px rgba(128, 128, 128, 0.507);
   margin: 40px;
   color: grey;

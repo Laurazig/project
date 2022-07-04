@@ -68,19 +68,21 @@ const Login = props => {
   return (
     <div>
       <h1>Login</h1>
+      <div className="form">
 
-      <form onSubmit={attemptLogin}>
-        <div>
-          <label>Username</label>
-          <input name="username" onChange={updateData} value={username} />
-        </div>
-        <div>
-          <label>Password</label>
-          <input name="password" onChange={updateData} value={password} />
-        </div>
+        <form onSubmit={attemptLogin} >
+          <div>
+            <label>Username</label>
+            <input name="username" onChange={updateData} value={username} />
+          </div>
+          <div>
+            <label>Password</label>
+            <input name="password" onChange={updateData} value={password} />
+          </div>
 
-        <button className="enterButton">SIGN IN</button>
-      </form>
+          <button className="enterButton">SIGN IN</button>
+        </form>
+      </div>
 
       {/* <button className="enterButton" onClick={updateShowLogin}>Not registered yet? Register for an account!</button> */}
       <div className="enterButtons">

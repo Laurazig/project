@@ -218,3 +218,8 @@ input[type=radio] {
 .liNav:hover{
   color: #A64AC9;
 }
+
+span{
+  padding-left: 10px;
+  /* cursor: pointer; */
+}

@@ -54,7 +54,7 @@ const Courses = props => {
     // Function to create a new course in the current user's "courses" array in the db
     // Make a POST request to the "/users/:id/courses" endpoint in our server...
     // ... and then handle the response from the server
-    const createNewCourse = event => {   //submitAlbum
+    const createNewCourse = async event => {   //submitAlbum
         event.preventDefault();
         const newCourse = {
             school: school,
@@ -109,17 +109,26 @@ const Courses = props => {
             alert(err.message);
         }
     }
-    // const deleteCourse = () => {
-    //     const settings = {
-    //         method: "DELETE",
-    //     }
-    //     fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log("All courses deleted", data);
-    //             setCourses([]);
-    //         })
-    // }
+    const deleteOneCourse = async event => {
+        const courseId = event.target.parentElement.id;
+        
+        const settings = {
+            method: "DELETE"
+        }
+
+        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/albums/${courseId}`, settings);        
+        const parsedRes = await response.json();
+
+        try {
+            if (response.ok) {
+                setCourses(parsedRes);
+            } else {
+                throw new Error(parsedRes.message);
+            }
+        } catch (err) {
+            alert(err.message);
+        }        
+    }
     return (
         <div>
             <h2 id="greeting">Welcome {firstName}!</h2>
@@ -147,7 +156,9 @@ const Courses = props => {
                 <ul>
                     {
                         courses.map(course => {
-                            return <li key={course._id}>{course.courseTitle} by {course.school} ({course.courseDate})</li>
+                            return <li key={course._id}id={course._id}>{course.courseTitle} by {course.school} ({course.courseDate})
+                             <span onClick={deleteOneCourse}>X</span>
+                            </li>
                         })
                     }
                 </ul>

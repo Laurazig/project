@@ -88,4 +88,25 @@ export const deleteCourses = async (req, res, next) => {
 //         err.statusCode = 404;
 //         next(err);
 //     }
+// =============================================================
+// DELETE a single album from the logged in user's "albums" list     02.06.22
+// =============================================================
+
+export const deleteCourse = async (req, res, next) => {
+    const userId = req.params.id;
+    const courseId = req.params.courseId;
+
+    let updatedUser;
+
+    try {
+        // (1) "Pull something (remove it)..."
+        // (2) "From the user's 'albums' array"
+        // (3) "The thing to pull out of the array is the one with an _id property === courseId"
+        //                                                    (1)      (2)          (3)
+        updatedUser = await User.findByIdAndUpdate(userId, { $pull: { courses: { _id: courseId } }}, { new: true, runValidators: true })
+    } catch {
+        return next(createError(500, "The user could not be updated. DeleteCourse not successful."));
+    }
+
+    res.json(updatedUser.courses);
 }

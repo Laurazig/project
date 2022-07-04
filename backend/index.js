@@ -14,8 +14,10 @@ import mongoose from "mongoose";
 const app = express();
 dotenv.config()
 
-//mongoose.connect("mongodb://localhost:27017/fullstack-project")  
-mongoose.connect("mongodb+srv://n42:bongo@cluster0.r46gvie.mongodb.net/fullstack-project?retryWrites=true&w=majority") 
+// mongoose.connect("mongodb://localhost:27017/fullstack-project")   //compass
+
+mongoose.connect("mongodb+srv://n42:bongo@cluster0.r46gvie.mongodb.net/fullstack-project?retryWrites=true&w=majority")
+
 //COMPASS:          mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/test
 //mongoose.connect("mongodb+srv://{process.env.DB_USERNAME}:{process.env.DB_PASSWORD}@cluster0.r46gvie.mongodb.net/{process.env.DB_NAME}?retryWrites=true&w=majority") 
 mongoose.connection.on("open", ()=> console.log("Database  connection established"));

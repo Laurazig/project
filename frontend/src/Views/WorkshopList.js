@@ -2,7 +2,7 @@
 
 import React from "react";
 // import { Link } from "react-router-dom";
-import Form from "../Components/Form";
+import Form from "../components/Form";
 
 const WorkshopList = props => {
     return (

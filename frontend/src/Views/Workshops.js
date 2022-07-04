@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import Sewing from "../Assets/sewing.JPG"
 // import { Link } from "react-router-dom";
 import WorkshopList from "./WorkshopList";
-import FormRegister from "../Components/FormRegister";
+import FormRegister from "../components/FormRegister";
 //import SearchResults from "./Components/SearchResults"
 
 const Workshops = props => {

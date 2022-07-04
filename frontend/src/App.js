@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect, } from "react-router-dom";
-import Navigation from "./Components/Navigation";
+import Navigation from "./components/Navigation";
 import Home from "./Views/Home";
 import Create from "./Views/Create";
 import Workshops from "./Views/Workshops";
@@ -22,6 +22,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUserId, setCurrentUserId] = useState("");
   const [showLogin, setShowLogin] = useState(true);
+  const [token, setToken] = useState(false);
 
   // const [ searchTerm, setSearchTerm ] =useState("");
 
@@ -99,7 +100,11 @@ const App = () => {
   // }
 
 
-
+  const login = (token, id) => {
+    setToken(token);
+    setCurrentUserId(id);
+    setIsLoggedIn(true);
+}
   const logout = () => {   //???????why is this not used
     setCurrentUserId("");
     setIsLoggedIn(false);
@@ -118,7 +123,7 @@ const App = () => {
           <Switch>
             {/* <Route path="/" exact component={Home} /> */}
             <Route path="/" exact>
-              {isLoggedIn? <Redirect to="/courses" /> : <Home />}
+              <Home />
             </Route>
             <Route path="/create" exact>
               <Create />
@@ -152,8 +157,9 @@ const App = () => {
             </FormContext.Provider> */}
             </Route>
             <Route path="/login" exact>
+            {isLoggedIn? <Redirect to="/courses" /> : <Home />}
               {/* <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> */}
-              {isLoggedIn? <Redirect to="/courses" /> :<Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> }
+              {isLoggedIn? <Redirect to="/courses" /> :<Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} login={login} /> }
               
             </Route>
             <Route path="/register" exact>

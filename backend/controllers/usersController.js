@@ -1,96 +1,143 @@
-// import { v4 as uuid } from "uuid";
-import User from "../models/user.js";
+//GET findById  .populate  
+//PATCH findById findByIdAndUpdate   $push
+
 import createError from "http-errors";
+import User from "../models/user.js";
 
 // ==============================================
 // GET the logged in user's data
 // ==============================================
+
 export const getUserData = async (req, res, next) => {
-    // Take the :id parameter from the request path ("/users/:id/albums")
+    // Take the :id parameter from the request path ("/users/:id/courses")
     const userId = req.params.id;
-    //  find in database "users" array === id / YES put in "foundUser" variable
-    let foundUser;     //30.05.22
+
+    // Try to find a user in the "users" collection with the same id
+    // If you find a user object with the correct id, make a copy and put it in the "foundUser" variable
+    // If you do not find the user, "foundUser" = undefined
+    let foundUser; 
+    
     try {
-        foundUser = await User.findOne({_id:userId}) //name:name, age:age
+       foundUser = await User.findById(userId);
     } catch {
-        return next(createError(500, "user could not be create(hello http-errors!). Please try again"));
+        return next(createError(500, "Couldn't query database. Please try again"));
     }
-    // If user found with the same id as the :id parameter ->Send name& A_list in response back to FE
+
+    // If a user was found with the same id as the :id parameter...
     if (foundUser) {
+        // Send in the response back to the frontend:
+        //  - firstName
+        //  - list of courses
+
+        // * New: 14/06
+        // Before using populate, the "courses" array contains only ObjectIds
+        // Now let's populate the user's "courses" array - for each id, go across to the "courses" collection and "fill in" the details of each course
+        await foundUser.populate("courses", {
+            _id: 1,
+            courseTitle: 1,
+            courseDate: 1,
+            school: 1
+        });
+
+        // ? The second argument lets you specify which keys to return in case you don't want all of them...
+        // await foundUser.populate("courses", {
+        //     _id: 1,
+        //     courseTitle: 1
+        // });
+
         const userData = {
             firstName: foundUser.firstName,
-            albums: foundUser.albums
+            courses: foundUser.courses,
+            isAdmin:foundUser.isAdmin
         }
         res.json(userData);
-    // no user found with same id as :id parameter...Create an error object -pass to err h. middleware
+    
+    // If no user was found with the same id as the :id parameter...
+    // Create an error object with a relevant message and statusCode, and pass it to the error handling middleware
     } else {
-        next(new createError.InternalServerError("user could not be created. Please try again"))
+        next(createError(404, "User could not be found"));
     }
 }
-// =======================================================
-// POST a new course to the logged in user's "courses" list
-// =======================================================
 
-export const postCourse = async (req, res, next) => {
-    const { school, courseTitle, courseDate } = req.body;
 
-    const newCourse = {          //newAlbum
-        school: school,         //band
-        courseTitle: courseTitle, //albumTitle
-        courseDate: courseDate    //albumYear
+
+
+// ==============================================================
+// PATCH Update the logged-in user's "courses" array with a new course id
+// ==============================================================
+
+export const updateCourses = async (req, res, next) => {
+    const courseId = req.body.id;    // id of the course the user just added
+    const userId = req.params.id;   // id of the current logged-in user
+
+    let foundUser;
+
+    // Use Mongoose to find the user's document in the "users" collection
+    // This way, we can find out the ids of all the courses they already added
+    try {
+        // foundUser = the current logged-in user's document from the "users" collection
+        // foundUser.courses = an array of the ids of all the courses added by the current user
+        foundUser = await User.findById(userId);
+    } catch {
+        return next(createError(500, "Query could not be completed. Please try again"))
     }
 
-    // Take the user's id from the "id" parameter of their request URL
-    const userId = req.params.id;
+    // Check if the current user already added the course they just made
+    // (courseId = the id of the course the user just made in the browser)
+    const foundCourse = foundUser.courses.find(existingId => existingId == courseId);
 
-    // Find the index of the user inside the "users" array of the database file
+    // So did the user already have the id of the course they're trying to add in their "courses" array?
+    // * Case 1 - the user didn't already have the album's id in their "courses" array:
+    if (!foundCourse) {
+        let updatedUser;
 
-    // Search in the user's array of courses to see if they already have the new course there
-    const newUser= await User.findByIdAndUpdate(userId, {$push:{courses:newCourse}},{new:true,runValidators:true})
-    const allAlbums=newUser.albums
-        res.status(201).json(allAlbums);
+        try {
+            // (1) the id of the user to update
+            // (2) how to update them
+            // (3) options
+            updatedUser = await User.findByIdAndUpdate(userId, { $push: { courses: courseId }}, { new: true, runValidators: true });
+        } catch {
+            return next(createError(500, "User could not be updated. Please try again"));
+        }
+
+        await updatedUser.populate("courses", {
+            _id: 1,
+            courseTitle: 1,
+            courseDate: 1,
+            school: 1,
+        })
+
+        res.json({ courses: updatedUser.courses });
+    } else {
+        // * Case 2: the course id already exists in the user's "courses" array (oh no!)
+        // We don't want to add the same id twice, so let's send an error back to the frontend
+        next(createError(409, "The album already exists in your collection!"));
+    }
 }
 
-// =======================================================
-// DELETE all courses  from the logged in user's "course" list
+// ==========================================================
+// DELETE all courses from the logged in user's "courses" list
 // ==========================================================
 
 export const deleteCourses = async (req, res, next) => {
     const userId = req.params.id;
 
+    // * Task 6 - Find the user who sent the request...
+    // * ... and update their "courses" array to be an empty arry
     let updatedUser;
+
     try {
-        updatedUser = await User.findByIdAndUpdate(userId, { albums:[] }, { new: true, runValidators:true})
+        updatedUser = await User.findByIdAndUpdate(userId, { courses: [] }, { new: true, runValidators: true })
     } catch {
-        return next(createError(500, "User could not be updated (usersController.js)"))
+        return next(createError(500, "User could not be updated. Please try again"));
     }
+    
     res.json(updatedUser.courses);
 }
 
-//    let indexOfUser;
-//    try {
-//        indexOfUser = await User.findIndex({_id:userId})
-//    } catch {
-//        return next(new createError.InternalServerError("delete error"));
-//    }
-//     // If the user exists in the db...
-//     if (indexOfUser > -1) {
-//         db.data.users[indexOfUser].albums = [];
-
-//         await db.write();
-    
-//         res.json(db.data.users[indexOfUser].albums);
-    
-//     // If the user does not exist in the db...
-//     // Create an error object with a relevant message and statusCode, and pass it to the error handling middleware
-//     } else {
-//         const err = new Error("User could not be found");
-//         err.statusCode = 404;
-//         next(err);
-//     }
-// =============================================================
-// DELETE a single album from the logged in user's "albums" list     02.06.22
-// =============================================================
+// ==========================================================
+// DELETE a single course from the logged in user's "courses" list
+// ==========================================================
 
 export const deleteCourse = async (req, res, next) => {
     const userId = req.params.id;
@@ -99,14 +146,31 @@ export const deleteCourse = async (req, res, next) => {
     let updatedUser;
 
     try {
-        // (1) "Pull something (remove it)..."
-        // (2) "From the user's 'albums' array"
-        // (3) "The thing to pull out of the array is the one with an _id property === courseId"
-        //                                                    (1)      (2)          (3)
-        updatedUser = await User.findByIdAndUpdate(userId, { $pull: { courses: { _id: courseId } }}, { new: true, runValidators: true })
+        // findByIdAndUpdate = change part of the document
+        // findByIdAndRemove = delete the full document!
+        // * Task 15 update: now we want to pull the item from the user's "courses" array which is EQUAL TO the albumId received in the request URL's params
+        updatedUser = await User.findByIdAndUpdate(userId, { $pull: { courses: albumId }}, { new: true, runValidators: true })
     } catch {
-        return next(createError(500, "The user could not be updated. DeleteCourse not successful."));
+        return next(createError(500, "User could not be updated. Please try again"));
     }
 
-    res.json(updatedUser.courses);
+    await updatedUser.populate("courses"); 
+
+    res.json({ courses: updatedUser.courses });
+}
+
+// ==========================================================
+// DELETE a user from the "users" collection
+// ==========================================================
+
+export const deleteUser = async (req, res, next) => {
+    const userId = req.params.id;
+
+    try {
+        await User.findByIdAndRemove(userId);
+    } catch {
+        return next(createError(500, "User could not be deleted. Please try again"));
+    }
+
+    res.json({ message: "Your account has been successfully deleted. Come back soon!" });
 }

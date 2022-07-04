@@ -1,7 +1,9 @@
 //adding new course to list on users page
 
 import React, { useState, useEffect } from "react";
-import Logout from "../Components/Logout.js"
+import Logout from "../components/Logout.js";
+import Deregister from "../components/Deregister.js";
+import UsersData from "../components/UsersData.js";
 
 const Courses = props => {
     const [firstName, setFirstName] = useState("");
@@ -9,12 +11,23 @@ const Courses = props => {
     const [courseTitle, setCourseTitle] = useState(""); //albumTitle
     const [courseDate, setCourseDate] = useState("");   //albumYear
     const [courses, setCourses] = useState([]);        //albums
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    
+    useEffect(() => {
+        console.log("token from app.js state", props.token)    },[])
 
     // When the <Courses /> component first renders...
     // GET relevant data about the user who logged in, and update state...
-    // So the user can see their name and current list of albums immediately after they log in/register
+    // So the user can see their name and current list of courses immediately after they log in/register
     useEffect(() => {
         const fetchUserData = async () => {
+            const settings = {
+                // headers: { 
+                //     "Authorisation": "Bearer " + props.token
+                // },
+                credentials:"include"
+            }
             // Make a GET request to the "/users/:id" endpoint in our server...
             // ... and then handle the response from the server
             const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}`);
@@ -22,8 +35,10 @@ const Courses = props => {
             try {
                 // If the request was successful...
                 if (response.ok) {
+                    console.log("Server response", parsedRes);
                     setFirstName(parsedRes.firstName);
                     setCourses(parsedRes.courses);
+                    setIsAdmin(parsedRes.isAdmin);
                 } else {
                     throw new Error(parsedRes.message);
                 }
@@ -34,7 +49,7 @@ const Courses = props => {
         fetchUserData();
     }, [props.currentUserId])
 
-
+    // Function to update the value of an input
     const updateData = event => {
         switch (event.target.name) {
             case "school":
@@ -65,34 +80,68 @@ const Courses = props => {
             method: "POST",
             body: JSON.stringify(newCourse),
             headers: {
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+                "Authorisation": "Bearer " + props.token
+            },
+            Credentials:"include"
         }
-        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings);
+       
+        // Make a request to create the new course in the "courses" collection (if needed)...
+        // And get the course's id back in the server's response
+        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/courses`, settings);
         const parsedRes = await response.json();
 
         try {
-            // If the request was successful...
+            // * Task 14 solution begins here!
+            // If the first fetch request was successful...
             if (response.ok) {
-                setCourses(parsedRes)
-                setSchool("");
-                setCourseTitle("");
-                setCourseDate("");
-                // If the request was unsuccessful...
+                const settings = {
+                    method: "PATCH",
+                    body: JSON.stringify({ id: parsedRes.id }),
+                    headers: {
+                        "Content-Type": "application/json",
+                         //"Authorisation": "Bearer " + props.token
+                    },
+            Credentials:"include"
+                }
+
+                // Make a second fetch request to add the new course id to the user's "courses" array
+                const secondResponse = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings);
+                const secondParsedRes = await secondResponse.json();
+
+                // If the second request was successful...
+                // Update the "courses" state variable with the user's up-to-date "courses" array (containing course ids)
+                // This will re-render the app, and the new array will be mapped in the JSX below
+                if (secondResponse.ok) {
+                    console.log("Add course server response", secondParsedRes.courses);
+                    setCourses(secondParsedRes.courses);
+                    setSchool("");
+                    setCourseTitle("");
+                    setCourseDate("");
+                
+                // If the second fetch request was unsuccessful...
+                } else {
+                    throw new Error(secondParsedRes.message);    
+                }
+            // If the first fetch request was unsuccessful...
             } else {
                 throw new Error(parsedRes.message);
             }
         } catch (err) {
             alert(err.message);
         }
-    }
+    } 
+
     // Function to delete all the current user's courses from the db
     // Make a DELETE request to the "/users/:id/courses" endpoint in our server...
     // ... and then handle the response from the server.
     const deleteAllCourses = async event => {
         event.preventDefault();
         const settings = {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                "Authorisation": "Bearer " + props.token
+            }
         }
 
         const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings);
@@ -113,10 +162,15 @@ const Courses = props => {
         const courseId = event.target.parentElement.id;
         
         const settings = {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                "Authorisation": "Bearer " + props.token
+            }
         }
+        //                             userid      albumid
+        // http://localhost:3001/users/1234/albums/5678
 
-        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/albums/${courseId}`, settings);        
+        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses/${courseId}`, settings);        
         const parsedRes = await response.json();
 
         try {
@@ -133,6 +187,8 @@ const Courses = props => {
         <div>
             <h2 id="greeting">Welcome to your dashbord {firstName}!</h2>
             <Logout logout={props.logout} />
+            <Deregister deregister={props.deregister} />
+          {isAdmin && < UsersData  currentUserId= {props.currentUserId} token={props.token}/>}
             <h1>Courses</h1>
             <h2>Courses you are signed up to show below! Add one to the list</h2>
             <div className="form">

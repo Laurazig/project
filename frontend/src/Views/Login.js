@@ -35,7 +35,8 @@ const Login = props => {
       body: JSON.stringify(loginData),
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      credentials: "include"
     }
 
     // Make a POST request to the "/login" endpoint in our server...
@@ -48,8 +49,11 @@ const Login = props => {
     try {
       // If the request was successful
       if (response.ok) {
-        props.setCurrentUserId(parsedRes.id);
-        props.setIsLoggedIn(true);
+        // const now = new Date();
+        // const tokenExpiry =new Date(now.getTime() + 1000 * 60 *60);
+        // localStorage.setItem("data", JSON.stringify({ token:parsedRes.token, id:parsedRes.id, expiry:tokenExpiry.toISOString()}));
+        props.login(parsedRes.token, parsedRes.id);
+      // If the request was unsuccessful
       } else {
         throw new Error(parsedRes.message);
       }

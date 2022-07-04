@@ -1,43 +1,50 @@
 import User from "../models/user.js";
-//import { v4 as uuid } from "uuid";
 import createError from "http-errors";
+import jwt from "jsonwebtoken";
 
-export const registerPost = async (req, res) => {
-    const { username, password, firstName, lastName, emailAddress } = req.body;
-    let found;
-    try {
-        found = await User.findOne({
-            username: username,
-            password: password,
-            firstName: firstName,
-            lastName: lastName,
-            emailAddress: emailAddress,
-            courses: []
-        })
-    } catch{
-        return next(createError(500, "could not query database"))
+export const registerPost = async (req, res, next) => {
+    const { username, password, firstName, lastName, emailAddress, isAdmin } = req.body;
+
+    let foundUsername;
+    try{
+        foundUsername = await User.findOne({ username: username});
+    } catch {
+        return next(createError(500,"database could not be queried"))
     }
-     // If there is no user in the db with the username received from the frontend
-     if (!found) {
-        // Create a new user based on data received from req.body
-        const newUser = new User({
-            username: username,
-            password: password,
-            firstName: firstName,
-            lastName: lastName,
-            emailAddress: emailAddress,
-            courses: []
-        })
-       try {
-        await newUser.save();
-       } catch {
-        return next(createError(500, "couldn't create user, please try again."));
-       } 
-        // Send response to client containing the new user object in JSON format
-        res.status(201).json(newUser._id);
-    // if user in db with username received from FE
-    // Create error object - pass it to error handling middleware
-    } else {
-        return next(createError(409, "Sorry, this username has been taken. Please choose another"));
-    }    
+    if(foundUsername) {
+        return next(createError(409,"username already taken"))
+    }
+    let foundEmail;
+    try{
+        foundEmail = await User.findOne({ emailAddress: emailAddress});
+    } catch {
+        return next(createError(500,"database could not be queried"))
+    }
+    if(foundEmail) {
+        return next(createError(409,"email address is taken"))
+    } 
+    const newUser = new User({
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        emailAddress: emailAddress,
+        isAdmin:false,
+        albums: [],
+        
+    });
+    try {
+        await newUser.save();   // We could get a validation error here if the schema is not fulfilled
+    } catch {
+        return next(createError(500, "User could not be created. Please try again"));
+    }
+    //create& issue JWT
+    let newToken;
+    try{
+        newToken= jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, {expiresIn: "1h"})
+        res.cookie("")
+    } catch {
+        return next (createError(500, "signup not completed"))
+    }
+    res.status(201).json({ id: newUser._id, token: newToken });
 }

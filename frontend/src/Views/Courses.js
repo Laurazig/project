@@ -9,17 +9,32 @@ const Courses = props => {
     const [courseTitle, setCourseTitle] = useState(""); //albumTitle
     const [courseDate, setCourseDate] = useState("");   //albumYear
     const [courses, setCourses] = useState([]);        //albums
+
+    // When the <Courses /> component first renders...
+    // GET relevant data about the user who logged in, and update state...
+    // So the user can see their name and current list of albums immediately after they log in/register
     useEffect(() => {
-        // const settings = {
-        //     method: "GET"
-        // }
-        fetch(`http://localhost:3001/users/${props.currentUserId}`)
-            .then(response => response.json())
-            .then(data => {
-                setFirstName(data.firstName);
-                setCourses(data.courses);
-            })
-    }, [])
+        const fetchUserData = async () => {
+            // Make a GET request to the "/users/:id" endpoint in our server...
+            // ... and then handle the response from the server
+            const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}`);
+            const parsedRes = await response.json();
+            try {
+                // If the request was successful...
+                if (response.ok) {
+                    setFirstName(parsedRes.firstName);
+                    setCourses(parsedRes.courses);
+                } else {
+                    throw new Error(parsedRes.message);
+                }
+            } catch (err) {
+                alert(err.message);
+            }
+        }
+        fetchUserData();
+    }, [props.currentUserId])
+
+
     const updateData = event => {
         switch (event.target.name) {
             case "school":
@@ -35,7 +50,11 @@ const Courses = props => {
                 break;
         }
     }
-    const createNewCourse = event => {   //submit course
+
+    // Function to create a new course in the current user's "courses" array in the db
+    // Make a POST request to the "/users/:id/courses" endpoint in our server...
+    // ... and then handle the response from the server
+    const createNewCourse = event => {   //submitAlbum
         event.preventDefault();
         const newCourse = {
             school: school,
@@ -49,75 +68,91 @@ const Courses = props => {
                 "Content-Type": "application/json"
             }
         }
-        fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings)
-            .then(response => response.json())
-            .then(data => {
-                console.log("New course created", data);
-                console.log(data)
-                setCourses(data);
+        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings);
+        const parsedRes = await response.json();
+
+        try {
+            // If the request was successful...
+            if (response.ok) {
+                setCourses(parsedRes)
                 setSchool("");
                 setCourseTitle("");
                 setCourseDate("");
-            })
-    }
-
-    
-    const deleteCourse = () => {
-        const settings = {
-            method: "DELETE",
+                // If the request was unsuccessful...
+            } else {
+                throw new Error(parsedRes.message);
+            }
+        } catch (err) {
+            alert(err.message);
         }
-        fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings)
-            .then(response => response.json())
-            .then(data => {
-                console.log("All courses deleted", data);
-                setCourses([]);
-            })
-            //asnc await taken from login_reg - const deleteAllAlbums = async event => { ........
-            // const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/albums`, settings);
-            // const parsedRes = await response.json();
-    
-            // try {
-            //     // If the request was successful...
-            //     if (response.ok) {
-            //         setAlbums(parsedRes);
-            //     // If the request was unsuccessful...
-            //     } else {
-            //         throw new Error(parsedRes.message);
-            //     }
-            // } catch (err) {
-            //     alert(err.message);
-            // }
     }
+    // Function to delete all the current user's courses from the db
+    // Make a DELETE request to the "/users/:id/courses" endpoint in our server...
+    // ... and then handle the response from the server.
+    const deleteAllCourses = async event => {
+        event.preventDefault();
+        const settings = {
+            method: "DELETE"
+        }
 
+        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings);
+        const parsedRes = await response.json();
+
+        try {
+            // If the request was successful...
+            if (response.ok) {
+                setCourses(parsedRes);
+            } else {
+                throw new Error(parsedRes.message);
+            }
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+    // const deleteCourse = () => {
+    //     const settings = {
+    //         method: "DELETE",
+    //     }
+    //     fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             console.log("All courses deleted", data);
+    //             setCourses([]);
+    //         })
+    // }
     return (
         <div>
             <h2 id="greeting">Welcome {firstName}!</h2>
             <Logout logout={props.logout} />
             <h1>Courses you are signed up to show below!</h1>
-            <h2>Add one to the list.</h2>
+            <h2>Add one to the list</h2>
             <form onSubmit={createNewCourse}>
                 <div>
                     <label>School</label>
                     <input name="school" onChange={updateData} value={school} />
                 </div>
-                <div>               
+                <div>
                     <label>Title</label>
                     <input name="title" onChange={updateData} value={courseTitle} />
                 </div>
-                <div>             
+                <div>
                     <label>Date</label>
                     <input name="date" onChange={updateData} value={courseDate} />
                 </div>
                 <button>Submit Course</button>
             </form>
-            <button onClick={deleteCourse}>Delete all courses!</button>
-            <div>         
+            <button onClick={deleteAllCourses}>Delete all courses!</button>
+            <div>
                 <h2>Current Courses</h2>
-                <ul>   {courses.map(course => {
-                    return <li key={course.id}>{course.courseTitle} by {course.school} ({course.courseDate})</li>
-                })}
+                <ul>
+                    {
+                        courses.map(course => {
+                            return <li key={course._id}>{course.courseTitle} by {course.school} ({course.courseDate})</li>
+                        })
+                    }
                 </ul>
             </div>
-        </div>)
+        </div>
+    )
 }
 export default Courses;

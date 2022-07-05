@@ -29,7 +29,7 @@ const userSchema = new Schema({
     // * The "ref" attribute allows us to create a connection between the User model and the Courses model
     // "These ObjectIds are all references to Courses documents"
     // Now we can use this reference to help us with "populating" each item in the array...
-    courses: [{ type: mongoose.Types.ObjectId, required: true, ref: "Album" }]
+    courses: [{ type: mongoose.Types.ObjectId, required: true, ref: "Course" }]
     // Timestamps option
     // Adds "createdAt" and "updatedAt" properties to each user document
 }, { timestamps: true });

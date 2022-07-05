@@ -28,6 +28,9 @@ const Navigation = props => {
                     <li className="liNav">
                         <Link to="/create" className="liNav">CREATE</Link>
                     </li>
+                    <li className="liNav">
+                        <Link to="/dashboard" className="liNav">DASHBOARD</Link>
+                    </li>
                 
                 </ul>
             </nav>

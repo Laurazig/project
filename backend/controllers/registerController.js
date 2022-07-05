@@ -30,7 +30,7 @@ export const registerPost = async (req, res, next) => {
         lastName: lastName,
         emailAddress: emailAddress,
         teacher:teacher,
-        albums: [],
+        courses: [],
         
     });
     try {

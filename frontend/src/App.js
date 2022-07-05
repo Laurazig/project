@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect, } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./Views/Home";
-import Create from "./Views/Create";
 import Workshops from "./Views/Workshops";
+import Create from "./Views/Create";
+import Dashboard from "./Views/Dashboard";
 import NotFound from "./Views/NotFound";
 import Register from "./Views/Register";
 import Login from "./Views/Login";
@@ -56,7 +57,7 @@ const App = () => {
         name: "Volkshochschule",
         workshop: "Tailoring basics",
         location: "City center",
-        date: "26.04.22",
+        date: "26.09.22",
         price: "20€",
         link: "https://www.vhs-leipzig.de/programm/kunst-kultur-kreativitaet.html?action%5B92%5D=category&cat_ID=495-CAT-KAT168"
       },
@@ -65,7 +66,7 @@ const App = () => {
         name: "Daniela Witt",
         workshop: "Alladin trousers",
         location: "Leutzsch",
-        date: "23.04.22",
+        date: "23.09.22",
         price: "60€",
         link: "https://dawitt.de/naehkurse-leipzig/"
       },
@@ -74,7 +75,7 @@ const App = () => {
         name: "Susanne Welle - SW Handmade ",
         workshop: "Hoodie",
         location: "Plagwitz",
-        date: "27.04.22",
+        date: "27.09.22",
         price: "37€",
         link: "https://sw-handmade.de/start.html"
       },
@@ -220,6 +221,9 @@ const App = () => {
                 token={token}
                 currentUserId={currentUserId}
               />
+            </Route>
+            <Route path="/dashboard" exact>
+              <Dashboard />
             </Route>
 
             <Route path="*" component={NotFound} />

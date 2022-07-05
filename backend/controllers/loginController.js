@@ -32,7 +32,7 @@ export const loginPost = async (req, res, next) => {
         let newToken;
         try {
             newToken = jwt.sign({ id: found.id }, process.env.SECRET_KEY, { expiresIn: "1h" })
-            res.cookie("dataCookie", newToken, { httpOnly: true, sameSite: "Strict" })
+            res.cookie("dataCookie loginController: jws.sign", newToken, { httpOnly: true, sameSite: "Strict" })
         } catch {
             return next(createError(500, "login not completed. loginController.js"))
         }

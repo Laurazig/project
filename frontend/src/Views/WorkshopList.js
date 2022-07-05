@@ -13,7 +13,7 @@ const WorkshopList = props => {
                         return (
                             <li className="workshopLi" key={obj.id} >
                                 <div className="workshopCard">
-                                (workshoplist.js)
+                                
                                     <div><strong>Name: </strong> {obj.name} </div>
                                     <div><strong>Workshop:</strong> {obj.workshop} </div>
                                     <div><strong>Location:</strong> {obj.location}</div>
@@ -21,6 +21,7 @@ const WorkshopList = props => {
                                     <div><strong>Price:</strong> {obj.price}</div>
                                     
                                         <a className="buttonCard"target="_blank" href={obj.link} ><div className="buttonCardDiv">Click here to visit their website</div></a>
+                                        <div className="pathWorkshopLi">workshoplist.js</div>
                                 </div>
                             </li>
                         )

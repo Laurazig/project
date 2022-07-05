@@ -28,7 +28,8 @@ mongoose.connection.on("open", () => console.log("Database connection establishe
 mongoose.connection.on("error", () => console.error);
 
 // Allows ALL cors requests to all our routes
-app.use(cors({origin: "https://fullstack-project-june2022-laurahesse.vercel.app", credentials:true}));
+app.use(cors({origin: "http://localhost:3000", credentials:true}));
+// app.use(cors({origin: "https://fullstack-project-june2022-laurahesse.vercel.app", credentials:true}));
 
 app.use(cookieParser())
 

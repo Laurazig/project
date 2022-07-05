@@ -31,10 +31,10 @@ export const loginPost = async (req, res, next) => {
 //create& issue JWT
 let newToken;
 try{
-    newToken= jwt.sign({ id: found.id }, "myserversecretkey", {expiresIn: "1h"})
-    res.cookie("dataCookie", newToken, {httpOnly: true,sameSite:"Strict"})
+    newToken= jwt.sign({ id: found.id },  process.env.SECRET_KEY, {expiresIn: "1h"})
+    res.cookie("dataCookie", newToken, {httpOnly: true, sameSite:"Strict"})
 } catch {
-    return next (createError(500, "signup not completed"))  //signup? for login?
+    return next (createError(500, "login not completed"))  
 }
 // console.log("Token", token) 
        //---------------------------

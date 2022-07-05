@@ -13,7 +13,7 @@ const Courses = props => {
     const [courseTitle, setCourseTitle] = useState(""); //albumTitle
     const [courseDate, setCourseDate] = useState("");   //albumYear
     const [courses, setCourses] = useState([]);        //albums
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [teacher, setTeacher] = useState(false);
     
 
 
@@ -37,7 +37,7 @@ const Courses = props => {
                     console.log("Server response", parsedRes);
                     setFirstName(parsedRes.firstName);
                     setCourses(parsedRes.courses);
-                    setIsAdmin(parsedRes.isAdmin);
+                    setTeacher(parsedRes.teacher);
                 } else {
                     throw new Error(parsedRes.message);
                 }
@@ -183,13 +183,18 @@ const Courses = props => {
             alert(err.message);
         }
     }
+
+    
     return (
         <div>
             <h1>Courses Dashboard</h1>
             <h2 id="greeting">Welcome {firstName}!</h2>
-            <Logout logout={props.logout} />
+            {/*logout button -GET error 404 courses  /unexpected < */}
+            <Logout logout={props.logout} />  
+            {/* deregister button - popup :not auth  -  app.js 403*/}
             <Deregister deregister={props.deregister} />
-            {isAdmin && < UsersData currentUserId={props.currentUserId} token={props.token} />}
+            {/* view button -popup :not auth  / GET error 403 usersData L12  */}
+            {teacher && < UsersData currentUserId={props.currentUserId} token={props.token} />}
             
             <h2>1. Learner? Courses you are registered on show below! </h2>
             <div className="currentCoursesContainer">

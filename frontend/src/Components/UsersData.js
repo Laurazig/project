@@ -1,5 +1,5 @@
 //admin can click button and see number of users
-//doesn't work
+
 
 const UsersData = props => {
     const showUserCount = async ()=>{
@@ -23,7 +23,7 @@ const UsersData = props => {
         }
     }
     return (
-        <button className="logout-btn" onClick={showUserCount}>View User's Data</button> 
+        <button className="enterButton" onClick={showUserCount}>View User's Data</button> 
     );
 }
 export default UsersData;

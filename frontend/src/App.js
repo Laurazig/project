@@ -123,7 +123,7 @@ const App = () => {
     setIsLoggedIn(true);
   }
   const logout = () => {
-    localStorage.removeItem("data")
+    // localStorage.removeItem("data")
     setToken(false);
     setCurrentUserId("");
     setIsLoggedIn(false);

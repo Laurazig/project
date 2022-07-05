@@ -11,7 +11,7 @@ const Form = props => {
         event.preventDefault();
 
         let newWorkshop = {
-            id: (props.workshops.length + 1).toString(),
+          //  id: (props.workshops.length + 1).toString(),   //console error length 
             // name: form.name,
             name: props.name,
             workshop: props.workshop,

@@ -1,5 +1,5 @@
 import express from "express";
-import { countUsers } from "../controllers/adminController.js";
+import { countUsers } from "../controllers/teacherController.js";
 import teacher from "../middleware/checkTeacher.js";
 
 const router = express.Router();

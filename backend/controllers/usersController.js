@@ -32,12 +32,12 @@ export const getUserData = async (req, res, next) => {
         // * New: 14/06
         // Before using populate, the "courses" array contains only ObjectIds
         // Now let's populate the user's "courses" array - for each id, go across to the "courses" collection and "fill in" the details of each course
-        await foundUser.populate("courses", {
-            _id: 1,
-            courseTitle: 1,
-            courseDate: 1,
-            school: 1
-        });
+        // await foundUser.populate("courses", {  //deactivated to show name
+        //     _id: 1,
+        //     courseTitle: 1,
+        //     courseDate: 1,
+        //     school: 1
+        // });
 
         // ? The second argument lets you specify which keys to return in case you don't want all of them...
         // await foundUser.populate("courses", {
@@ -48,7 +48,7 @@ export const getUserData = async (req, res, next) => {
         const userData = {
             firstName: foundUser.firstName,
             courses: foundUser.courses,
-            isAdmin:foundUser.isAdmin
+            teacher:foundUser.teacher
         }
         res.json(userData);
     

@@ -9,7 +9,7 @@ const Register = props => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [teacher, setTeacher] = useState(false);
+  const [teacher, setTeacher] = useState(true);
 
 
   const updateData = event => {
@@ -58,7 +58,7 @@ const Register = props => {
       headers: {
         "Content-Type": "application/json"
       },
-      Credentials: "include"
+      credentials: "include"
     }
     console.log(process.env.REACT_APP_SERVER_URL)
 

@@ -3,7 +3,7 @@ import createError from "http-errors";
 import jwt from "jsonwebtoken";
 
 export const registerPost = async (req, res, next) => {
-    const { username, password, firstName, lastName, emailAddress, isAdmin } = req.body;
+    const { username, password, firstName, lastName, emailAddress, teacher } = req.body;
 
     let foundUsername;
     try{
@@ -29,7 +29,7 @@ export const registerPost = async (req, res, next) => {
         firstName: firstName,
         lastName: lastName,
         emailAddress: emailAddress,
-        isAdmin:false,
+        teacher:teacher,
         albums: [],
         
     });

@@ -26,15 +26,10 @@ const Courses = props => {
     // So the user can see their name and current list of courses immediately after they log in/register
     useEffect(() => {
         const fetchUserData = async () => {
-            const settings = {
-                // headers: { 
-                //     "Authorisation": "Bearer " + props.token
-                // },
-                credentials: "include"
-            }
+            // const settings = 
             // Make a GET request to the "/users/:id" endpoint in our server...
             // ... and then handle the response from the server
-            const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}`);
+            const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}`, {credentials: "include"});
             const parsedRes = await response.json();
             try {
                 // If the request was successful...
@@ -190,7 +185,7 @@ const Courses = props => {
     }
     return (
         <div>
-            <h1>Courses Dashbord</h1>
+            <h1>Courses Dashboard</h1>
             <h2 id="greeting">Welcome {firstName}!</h2>
             <Logout logout={props.logout} />
             <Deregister deregister={props.deregister} />

@@ -25,7 +25,7 @@ const userSchema = new Schema({
     firstName: String,  // firstName is no longer required
     lastName: String,   // lastName is no longer required
     emailAddress: { type: String, required: true, unique: true },
-    isAdmin: { type: Boolean, required: true },
+    teacher: { type: Boolean, required: true },
     // * The "ref" attribute allows us to create a connection between the User model and the Courses model
     // "These ObjectIds are all references to Courses documents"
     // Now we can use this reference to help us with "populating" each item in the array...

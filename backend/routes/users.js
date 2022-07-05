@@ -6,7 +6,7 @@ import authoriseUser from "../middleware/authoriseUser.js";
 
 const router = express.Router();
 
-router.use(authoriseUser)
+router.use(authoriseUser)  //cookie 
 
 router.get("/:id", getUserData);    // GET /users/1234
 

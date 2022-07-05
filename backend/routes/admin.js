@@ -1,8 +1,8 @@
 import express from "express";
 import { countUsers } from "../controllers/adminController.js";
-import isAdmin from "../middleware/checkIsAdmin.js";
+import teacher from "../middleware/checkTeacher.js";
 
 const router = express.Router();
-router.use(isAdmin);
+router.use(teacher);
 router.get("/:id/count", countUsers)     //not working 
 export default router;

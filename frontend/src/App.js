@@ -218,6 +218,7 @@ const App = () => {
                 logout={logout} 
                 deregister={deregister} 
                 token={token}
+                currentUserId={currentUserId}
               />
             </Route>
 

@@ -1,4 +1,4 @@
-//form to register for workshop
+//register for workshop
 
 import React, { useState, useEffect, createRef } from "react";
 //import Workshops from "../Views/Workshops";
@@ -95,18 +95,20 @@ const FormRegister = props => {
             //     setComment("");
                 
             // }; 
-    const submitForm = event => {
+    const submitForm = async event => {
         event.preventDefault();
         if ( userName.length > 0 
             && /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[A-Za-z]+$/.test(userEmail) 
             && num.length > 0 
             && comment.length > 20 
             && select !=="default"   ) {
+               
                 console.log("userName", userName);
                 console.log("num", num);
                 console.log("select", select);
                 console.log("comment", comment);
                 console.log("newsLetter", newsLetter);
+ 
                 setUserName("");
                 setNameChanged(false)
                 setUserEmail("");

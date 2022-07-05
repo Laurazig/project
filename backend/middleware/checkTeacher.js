@@ -4,7 +4,7 @@ import createError from "http-errors";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 
-const isAdmin = async (req,res,next) =>{
+const teacher = async (req,res,next) =>{
     let token;
     try {
         //token = req.headers.authorization.split(" ")[1]; 
@@ -19,7 +19,7 @@ const isAdmin = async (req,res,next) =>{
         } catch {
             return next(createError(500, "couldn't query database"))
         }
-        if (currentUser && currentUser.isAdmin){
+        if (currentUser && currentUser.teacher){
             next();
         } else  {
             next(createError(403, "User could not be authorised"))
@@ -29,4 +29,4 @@ const isAdmin = async (req,res,next) =>{
         next(createError(403,"user could not be authorised"))
     }
 }
-export default isAdmin
+export default teacher

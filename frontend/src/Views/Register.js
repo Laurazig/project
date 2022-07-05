@@ -9,7 +9,8 @@ const Register = props => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [teacher, setTeacher] = useState(false)
+  const [teacher, setTeacher] = useState(false);
+
 
   const updateData = event => {
     switch (event.target.name) {

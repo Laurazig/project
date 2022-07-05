@@ -34,7 +34,7 @@ try{
     newToken= jwt.sign({ id: found.id }, "myserversecretkey", {expiresIn: "1h"})
     res.cookie("dataCookie", newToken, {httpOnly: true,sameSite:"Strict"})
 } catch {
-    return next (createError(500, "signup not completed"))
+    return next (createError(500, "signup not completed"))  //signup? for login?
 }
 // console.log("Token", token) 
        //---------------------------

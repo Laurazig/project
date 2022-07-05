@@ -193,12 +193,12 @@ const App = () => {
             <Route path="/login" exact>
               {/* {isLoggedIn? <Redirect to="/courses" /> : <Home />} */}
               {/* <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> */}
-              {isLoggedIn ? <Redirect to="/courses" /> : <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} login={login} />}
+              {isLoggedIn ? <Redirect to="/courses" /> : <Login setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} login={login}  />}
 
             </Route>
             <Route path="/register" exact>
               {/* <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} /> */}
-              {isLoggedIn ? <Redirect to="/courses" /> : <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} login={login} />}
+              {isLoggedIn ? <Redirect to="/courses" /> : <Register setShowLogin={setShowLogin} setIsLoggedIn={setIsLoggedIn} setCurrentUserId={setCurrentUserId} login={login}  />}
             </Route>
             <Route path="/courses" exact>
               <Courses
@@ -217,6 +217,7 @@ const App = () => {
                 update={updateWorkshop}
                 logout={logout} 
                 deregister={deregister} 
+                token={token}
               />
             </Route>
 

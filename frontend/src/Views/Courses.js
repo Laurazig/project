@@ -14,6 +14,7 @@ const Courses = props => {
     const [courseDate, setCourseDate] = useState("");   //albumYear
     const [courses, setCourses] = useState([]);        //albums
     const [isAdmin, setIsAdmin] = useState(false);
+    
 
 
     useEffect(() => {
@@ -77,7 +78,8 @@ const Courses = props => {
         const newCourse = {
             school: school,
             courseTitle: courseTitle,
-            courseDate: courseDate
+            courseDate: courseDate,
+            token:props.token
         }
         const settings = {
             method: "POST",

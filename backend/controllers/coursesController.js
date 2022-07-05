@@ -12,7 +12,7 @@ export const coursesPost = async (req, res, next) => {
     try {
         existingCourse = await Course.findOne(req.body);
     } catch {
-        return next(createError(500, "Query didn't succeed. Please try again"));
+        return next(createError(500, "Query didn't succeed. coursesController.js"));
     }
 
     // ? Question 2: Did we find an existing course with the same details in the "courses" collection?
@@ -29,7 +29,7 @@ export const coursesPost = async (req, res, next) => {
             // Save the new course document in the "courses" collection
             await newCourse.save();
         } catch {
-            return next(createError(500, "Course couldn't be created. Please try again"));
+            return next(createError(500, "Course couldn't be created. coursesController.js"));
         }
         
         res.json({ id: newCourse._id });

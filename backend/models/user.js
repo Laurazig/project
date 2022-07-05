@@ -38,10 +38,10 @@ const userSchema = new Schema({
 // "If the user hasn't been given a first name, give them a *default* value BEFORE trying to save the new document"
 userSchema.pre("save", async function(next) {
     if (!this.firstName) {
-        this.firstName = "John";
+        this.firstName = "Laura";
     }
     if (!this.lastName) {
-        this.lastName = "Smith";
+        this.lastName = "Hesse";
     }
     const securePassword2 = await bcrypt.hash(this.password, 12);
         this.password = securePassword2

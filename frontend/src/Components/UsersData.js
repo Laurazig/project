@@ -7,14 +7,14 @@ const UsersData = props => {
             // headers: {
             //     "Authorization": "Bearer " + props.token
             // }
-            credntials:"include"
+            Credentials: "include"
         }
-        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/admin/${props.currentUserId}/count`, settings);
+        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/teacher/${props.currentUserId}/count`, settings);
         const parsedRes = await response.json();
 
         try {
             if (response.ok) {
-                alert(`current number of users: ${parsedRes.count}`);
+                alert(`current number of users: ${parsedRes.count}. COMPONENTS: UserData.js`);
             } else {
                 throw new Error(parsedRes.message);
             }

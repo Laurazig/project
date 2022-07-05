@@ -9,7 +9,7 @@ import registerRouter from "./routes/register.js";
 import loginRouter from "./routes/login.js";
 import usersRouter from "./routes/users.js";
 import coursesRouter from "./routes/courses.js";
-import adminRouter  from "./routes/admin.js"
+import teacherRouter  from "./routes/teacher.js"
 
 import cookieParser from "cookie-parser";
 
@@ -50,7 +50,7 @@ app.use("/users", usersRouter);
 
 app.use("/courses", coursesRouter);
 
-app.use("/admin", adminRouter);
+app.use("/teacher", teacherRouter);
 
 
 // The last registered middleware = global error handler

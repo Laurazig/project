@@ -20,7 +20,7 @@ export const getUserData = async (req, res, next) => {
     try {
        foundUser = await User.findById(userId);
     } catch {
-        return next(createError(500, "Couldn't query database. Please try again"));
+        return next(createError(500, "Couldn't query database. usersController.js"));
     }
 
     // If a user was found with the same id as the :id parameter...
@@ -55,7 +55,7 @@ export const getUserData = async (req, res, next) => {
     // If no user was found with the same id as the :id parameter...
     // Create an error object with a relevant message and statusCode, and pass it to the error handling middleware
     } else {
-        next(createError(404, "User could not be found"));
+        next(createError(404, "User could not be found. usersController.js"));
     }
 }
 
@@ -79,7 +79,7 @@ export const updateCourses = async (req, res, next) => {
         // foundUser.courses = an array of the ids of all the courses added by the current user
         foundUser = await User.findById(userId);
     } catch {
-        return next(createError(500, "Query could not be completed. Please try again"))
+        return next(createError(500, "Query could not be completed. usersController.js"))
     }
 
     // Check if the current user already added the course they just made
@@ -97,7 +97,7 @@ export const updateCourses = async (req, res, next) => {
             // (3) options
             updatedUser = await User.findByIdAndUpdate(userId, { $push: { courses: courseId }}, { new: true, runValidators: true });
         } catch {
-            return next(createError(500, "User could not be updated. Please try again"));
+            return next(createError(500, "User could not be updated. usersController.js"));
         }
 
         await updatedUser.populate("courses", {
@@ -111,7 +111,7 @@ export const updateCourses = async (req, res, next) => {
     } else {
         // * Case 2: the course id already exists in the user's "courses" array (oh no!)
         // We don't want to add the same id twice, so let's send an error back to the frontend
-        next(createError(409, "The album already exists in your collection!"));
+        next(createError(409, "The album already exists in your collection! userController.js"));
     }
 }
 
@@ -129,7 +129,7 @@ export const deleteCourses = async (req, res, next) => {
     try {
         updatedUser = await User.findByIdAndUpdate(userId, { courses: [] }, { new: true, runValidators: true })
     } catch {
-        return next(createError(500, "User could not be updated. Please try again"));
+        return next(createError(500, "User could not be updated.  userController.js"));
     }
     
     res.json(updatedUser.courses);
@@ -151,7 +151,7 @@ export const deleteCourse = async (req, res, next) => {
         // * Task 15 update: now we want to pull the item from the user's "courses" array which is EQUAL TO the albumId received in the request URL's params
         updatedUser = await User.findByIdAndUpdate(userId, { $pull: { courses: albumId }}, { new: true, runValidators: true })
     } catch {
-        return next(createError(500, "User could not be updated. Please try again"));
+        return next(createError(500, "User could not be updated.  userController.js"));
     }
 
     await updatedUser.populate("courses"); 
@@ -169,8 +169,8 @@ export const deleteUser = async (req, res, next) => {
     try {
         await User.findByIdAndRemove(userId);
     } catch {
-        return next(createError(500, "User could not be deleted. Please try again"));
+        return next(createError(500, "User could not be deleted.  userController.js"));
     }
 
-    res.json({ message: "Your account has been successfully deleted. Come back soon!" });
+    res.json({ message: "Your account has been successfully deleted. Come back soon!  userController.js" });
 }

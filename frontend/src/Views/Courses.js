@@ -15,7 +15,7 @@ const Courses = props => {
     const [courses, setCourses] = useState([]);        //albums
     const [teacher, setTeacher] = useState(false);
     
-
+//console error:  React Hook useEffect has a missing dependency: 'props.token'. Either include it or remove the dependency array
 
     useEffect(() => {
         console.log("token from app.js state", props.token)
@@ -141,7 +141,8 @@ const Courses = props => {
             method: "DELETE",
             headers: {
                 "Authorisation": "Bearer " + props.token
-            }
+            }, 
+            Credentials: "include"
         }
 
         const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings);

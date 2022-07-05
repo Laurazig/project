@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build": "[project] build --output public"   
+    "build": "[backend] build --output public"   
   },
   "author": "",
   "license": "ISC",

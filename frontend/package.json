@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "project build --output public",
+    "build": "react-scripts build --output public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

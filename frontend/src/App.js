@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect, } from "react-router-dom";
+import Workshops from "./Views/Workshops";
+import Courses from "./Views/Courses.js";  //Albums
+
 import Navigation from "./components/Navigation";
 import Home from "./Views/Home";
-import Workshops from "./Views/Workshops";
 import Create from "./Views/Create";
 import Dashboard from "./Views/Dashboard";
-import NotFound from "./Views/NotFound";
 import Register from "./Views/Register";
 import Login from "./Views/Login";
-import Courses from "./Views/Courses.js";  //Albums
+import NotFound from "./Views/NotFound";
 import './App.css';
 
 //state for: add new workshop (form.js)
@@ -34,21 +35,21 @@ const App = () => {
     setWorkshops(pretendFetch)
   }, []);
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("data"));
-    if (data && data.token && data.id && data.expiry) {
-      const tokenExpiry = new Date(data.expiry);
-      const now = new Date();
+  // useEffect(() => {
+  //   const data = JSON.parse(localStorage.getItem("data"));
+  //   if (data && data.token && data.id && data.expiry) {
+  //     const tokenExpiry = new Date(data.expiry);
+  //     const now = new Date();
 
-      if (tokenExpiry > now) {
-        login(data.token, data.id);
-      } else {
-        logout();
-      }
-    } else {
-      logout();
-    }
-  }, []);
+  //     if (tokenExpiry > now) {
+  //       login(data.token, data.id);
+  //     } else {
+  //       logout();
+  //     }
+  //   } else {
+  //     logout();
+  //   }
+  // }, []);
 
   const pretendFetch = () => {
     return [
@@ -158,8 +159,6 @@ const App = () => {
     }
   }
 
-
-
   return (
     <div className="App">
       <Router>
@@ -178,9 +177,6 @@ const App = () => {
             <Route path="/workshops" exact>
               <Workshops
                 workshops={workshops}
-
-
-
               // searchTerm={searchTerm}
               // handleChangeSearch={handleChangeSearch}
               />

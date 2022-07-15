@@ -18,6 +18,9 @@ import teacherRouter  from "./routes/teacher.js"
 
 import cookieParser from "cookie-parser";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
 
 // Initiate dotenv so you can use environment variables

@@ -1,20 +1,26 @@
 {
-  "name": "project",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "## Frontend  created at end of SPA module 19.04.22 ## Backend  created as end of module 29.06.22",
+  "description": "My awesome Fullstack app!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"    
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "heroku-postbuild":"cd frontend && npm i --production && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Laurazig/project.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Laurazig/project/issues"
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.18"
   },
-  "homepage": "https://github.com/Laurazig/project#readme"
+  "type": "module"
 }

@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect, } from "react-router-
 import Workshops from "./Views/Workshops";
 import Courses from "./Views/Courses.js";  //Albums
 
-import Navigation from "../components/Navigation";
+import Navigation from "./components/Navigation";
 import Home from "./Views/Home";
 import Create from "./Views/Create";
 import Dashboard from "./Views/Dashboard";

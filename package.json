@@ -4,8 +4,7 @@
   "description": "## Frontend  created at end of SPA module 19.04.22 ## Backend  created as end of module 29.06.22",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    
+    "test": "echo \"Error: no test specified\" && exit 1"    
   },
   "repository": {
     "type": "git",

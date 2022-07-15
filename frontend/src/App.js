@@ -6,13 +6,13 @@ import { BrowserRouter as Router, Switch, Route, Redirect, } from "react-router-
 import Workshops from "./Views/Workshops";
 import Courses from "./Views/Courses.js";  //Albums
 
-import Navigation from "./components/Navigation.js";
-import Home from "./Views/Home.js";
-import Create from "./Views/Create.js";
-import Dashboard from "./Views/Dashboard.js";
-import Register from "./Views/Register.js";
-import Login from "./Views/Login.js";
-import NotFound from "./Views/NotFound.js";
+import Navigation from "./components/Navigation";
+import Home from "./Views/Home";
+import Create from "./Views/Create";
+import Dashboard from "./Views/Dashboard";
+import Register from "./Views/Register";
+import Login from "./Views/Login";
+import NotFound from "./Views/NotFound";
 import './App.css';
 
 //state for: add new workshop (form.js)

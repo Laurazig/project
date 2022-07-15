@@ -47,7 +47,7 @@ const Login = props => {
     // ... and then handle the response from the server
     // ? If we're in the local environment, the request goes to: "http://localhost:3001/login"
     // ? If we're in the production environment, the request goes to "https://herokuapp..../login"
-    const response = await fetch(process.env.REACT_APP_SERVER_URL + "/login", settings);
+    const response = await fetch("/api/login", settings);
     const parsedRes = await response.json();
 
     try {

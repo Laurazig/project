@@ -29,7 +29,7 @@ const Courses = props => {
             // const settings = 
             // Make a GET request to the "/users/:id" endpoint in our server...
             // ... and then handle the response from the server
-            const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}`, {credentials: "include"});
+            const response = await fetch(`/api/users/${props.currentUserId}`, {credentials: "include"});
             const parsedRes = await response.json();
             try {
                 // If the request was successful...
@@ -88,7 +88,7 @@ const Courses = props => {
 
         // Make a request to create the new course in the "courses" collection (if needed)...
         // And get the course's id back in the server's response
-        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/courses`, settings);
+        const response = await fetch(`/api/courses`, settings);
         const parsedRes = await response.json();
 
         try {
@@ -106,7 +106,7 @@ const Courses = props => {
                 }
 
                 // Make a second fetch request to add the new course id to the user's "courses" array
-                const secondResponse = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings);
+                const secondResponse = await fetch(`/api/users/${props.currentUserId}/courses`, settings);
                 const secondParsedRes = await secondResponse.json();
 
                 // If the second request was successful...
@@ -145,7 +145,7 @@ const Courses = props => {
             Credentials: "include"
         }
 
-        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses`, settings);
+        const response = await fetch(`/api/users/${props.currentUserId}/courses`, settings);
         const parsedRes = await response.json();
 
         try {
@@ -171,7 +171,7 @@ const Courses = props => {
         //                             userid      albumid
         // http://localhost:3001/users/1234/albums/5678
 
-        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${props.currentUserId}/courses/${courseId}`, settings);
+        const response = await fetch(`/api/users/${props.currentUserId}/courses/${courseId}`, settings);
         const parsedRes = await response.json();
 
         try {

@@ -145,7 +145,7 @@ const App = () => {
     // Let's pretend the current user has an id of 1234abcd
     // The DELETE request will be sent to:
     // http://localhost:3001/users/1234abcd
-    const response = await fetch(process.env.REACT_APP_SERVER_URL + `/users/${currentUserId}`, settings);
+    const response = await fetch(`/api/users/${currentUserId}`, settings);
     const parsedRes = await response.json();
 
     try {

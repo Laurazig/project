@@ -6,7 +6,9 @@ import cors from "cors";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import path from 'path';
 import globalErrorHandler from "./middleware/globalErrorHandler.js";
 import registerRouter from "./routes/register.js";
 import loginRouter from "./routes/login.js";
@@ -45,16 +47,21 @@ app.use(express.json());
 // Use morgan to make a small log every time a request is received
 app.use(morgan("tiny"));
 
-app.use("/register", registerRouter);
+app.use("/api/register", registerRouter);
 
-app.use("/login", loginRouter);
+app.use("/api/login", loginRouter);
 
-app.use("/users", usersRouter);
+app.use("/api/users", usersRouter);
 
-app.use("/courses", coursesRouter);
+app.use("/api/courses", coursesRouter);
 
-app.use("/teacher", teacherRouter);
+app.use("/api/teacher", teacherRouter);
 
+
+app.use(express.static(path.join(__dirname, "frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/frontend/build/index.html"));
+});
 
 // The last registered middleware = global error handler
 app.use(globalErrorHandler);

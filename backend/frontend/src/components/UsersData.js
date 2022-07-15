@@ -9,7 +9,7 @@ const UsersData = props => {
             // }
             Credentials: "include"
         }
-        const response = await fetch(process.env.REACT_APP_SERVER_URL + `/teacher/${props.currentUserId}/count`, settings);
+        const response = await fetch(`/api/teacher/${props.currentUserId}/count`, settings);
         const parsedRes = await response.json();
 
         try {

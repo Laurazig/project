@@ -64,7 +64,7 @@ const Register = props => {
 
     // Make a POST request to the "/register" endpoint in our server...
     // ... and then handle the response from the server
-    const response = await fetch(process.env.REACT_APP_SERVER_URL + "/register", settings);
+    const response = await fetch("/api/register", settings);
     const parsedRes = await response.json();
 
     try {
